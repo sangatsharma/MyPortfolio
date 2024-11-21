@@ -12,7 +12,7 @@ export const IntroAside: React.FC<IntroProps> = ({}) => {
             className="rounded-full"
             width="250"
             height="250"
-            src={"/public/images/introImagea.jpg"}
+            src={"/images/introImagea.jpg"}
             alt="profile"
           />
         </div>
