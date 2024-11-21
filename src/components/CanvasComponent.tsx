@@ -1,6 +1,6 @@
 // src/components/CanvasComponent.tsx
 import React, { useEffect, useRef, useState } from "react";
-import { useThemeContext } from "../context/ThemeContext";
+
 
 // Ball interface to type the Ball objects
 interface Ball {
