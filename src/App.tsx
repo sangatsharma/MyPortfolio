@@ -1,16 +1,32 @@
-// src/App.tsx
-import React from "react";
-import CanvasComponent from "./components/CanvasComponent";
-import Portfolio from "./pages/portfolio";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <h1 className="text-center text-2xl mt-4">Canvas Animation</h1>
-      {/* <CanvasComponent /> */}
-      <Portfolio />
-    </div>
-  );
-};
+import { useThemeContext } from "./context/ThemeContext.jsx";
+import { useEffect } from "react";
+import HomePage from "./pages/Homepage.js";
+
+function App() {
+  const { isDarkMode } = useThemeContext();
+
+  useEffect(() => {
+    document.body.className = isDarkMode ? "dark-mode" : "light-mode";
+  }, [isDarkMode]);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      // element: <RootPageLayout />,
+      // errorElement: <PageNotFound />,
+      children: [
+        { path: "/", element: <HomePage /> },
+
+        // {
+        //   path: "/bookmarks",
+        //   element: <PrivateRoute element={BookmarkRecipes} />,
+        // },
+      ],
+    },
+  ]);
+  return <RouterProvider router={router} />;
+}
 
 export default App;

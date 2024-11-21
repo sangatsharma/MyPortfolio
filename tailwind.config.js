@@ -1,8 +1,19 @@
-// tailwind.config.js
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        yellow: {
+          500: "#FBBF24",
+        },
+        orange: {
+          500: "#FB923C",
+        },
+        fontFamily: {
+          poppins: ['Poppins', 'sans-serif'],  // Add Poppins as the default sans font
+        },
+      },
+    },
   },
   plugins: [],
 };

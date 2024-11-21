@@ -1,4 +1,28 @@
-/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bgColor: #223344;
+  --bgColor2: #090a0f;
+  --accentColor: #fff;
+} 
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body.light-mode {
+  background: linear-gradient(45deg, #11c5ef 0%, #1172ef 100%);
+  color: white;
+}
+
+body.dark-mode {
+  background: radial-gradient(ellipse at center bottom, #1f2c39 0%, #000000 60%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}

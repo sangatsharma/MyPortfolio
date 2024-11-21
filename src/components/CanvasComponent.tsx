@@ -1,5 +1,6 @@
 // src/components/CanvasComponent.tsx
 import React, { useEffect, useRef, useState } from "react";
+import { useThemeContext } from "../context/ThemeContext";
 
 // Ball interface to type the Ball objects
 interface Ball {
@@ -12,19 +13,33 @@ interface Ball {
   isDragging: boolean;
   startX: number;
   startY: number;
-  draw: (ctx: CanvasRenderingContext2D, images: { [key: string]: HTMLImageElement }) => void;
-  update: (canvas: HTMLCanvasElement | null, ctx: CanvasRenderingContext2D, images: { [key: string]: HTMLImageElement }) => void;
+  draw: (
+    ctx: CanvasRenderingContext2D,
+    images: { [key: string]: HTMLImageElement }
+  ) => void;
+  update: (
+    canvas: HTMLCanvasElement | null,
+    ctx: CanvasRenderingContext2D,
+    images: { [key: string]: HTMLImageElement }
+  ) => void;
   applyDrag: (dx: number, dy: number) => void;
   calculateReleaseVelocity: (dx: number, dy: number) => void;
 }
 
-const maxVelocity = 10; // Define maxVelocity
+const maxVelocity = 8; // Define maxVelocity
 const minVelocity = 1; // Define minVelocity
+let isMobile = false; // Define isMobile
 
 const CanvasComponent: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [images, setImages] = useState<{ [key: string]: HTMLImageElement }>({});
   const [balls, setBalls] = useState<Ball[]>([]);
+  const [tooltip, setTooltip] = useState<{
+    visible: boolean;
+    text: string;
+    x: number;
+    y: number;
+  }>({ visible: false, text: "", x: 0, y: 0 });
 
   useEffect(() => {
     const imageSources = {
@@ -43,7 +58,9 @@ const CanvasComponent: React.FC = () => {
       img.src = imageSources[key as keyof typeof imageSources];
       img.onload = () => {
         loadedImages[key] = img;
-        if (Object.keys(loadedImages).length === Object.keys(imageSources).length) {
+        if (
+          Object.keys(loadedImages).length === Object.keys(imageSources).length
+        ) {
           setImages(loadedImages);
         }
       };
@@ -54,7 +71,7 @@ const CanvasComponent: React.FC = () => {
     if (canvas) {
       const updateCanvasSize = () => {
         canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight*0.8;
+        canvas.height = window.innerHeight * 0.8;
       };
       window.addEventListener("resize", updateCanvasSize);
       updateCanvasSize();
@@ -64,13 +81,18 @@ const CanvasComponent: React.FC = () => {
   }, []);
 
   // Ball Object
-  const createBall = (x: number, y: number, radius: number, imageKey: string): Ball => ({
+  const createBall = (
+    x: number,
+    y: number,
+    radius: number,
+    imageKey: string
+  ): Ball => ({
     x,
     y,
     radius,
     imageKey,
-    dx: Math.random() * 8 - 4, // Adjusted to ensure proper movement
-    dy: Math.random() * 8 - 4, // Adjusted to ensure proper movement
+    dx: 0, // Initially no movement
+    dy: 0, // Initially no movement
     isDragging: false,
     startX: x,
     startY: y,
@@ -84,12 +106,18 @@ const CanvasComponent: React.FC = () => {
       // Draw the logo inside the ball
       const img = images[this.imageKey];
       if (img) {
-        const imgSize = this.radius * 1.3;
-        ctx.drawImage(img, this.x - imgSize / 2, this.y - imgSize / 2, imgSize, imgSize);
+        const imgSize = this.radius * 1.4;
+        ctx.drawImage(
+          img,
+          this.x - imgSize / 2,
+          this.y - imgSize / 2,
+          imgSize,
+          imgSize
+        );
       }
     },
     update: function (canvas, ctx, images) {
-      if (!this.isDragging) {
+      if (!this.isDragging && (this.dx !== 0 || this.dy !== 0)) {
         this.x += this.dx;
         this.y += this.dy;
 
@@ -102,13 +130,21 @@ const CanvasComponent: React.FC = () => {
         }
 
         // Collision with walls
-        if (canvas && (this.x - this.radius < 0 || this.x + this.radius > canvas.width)) {
+        if (
+          canvas &&
+          (this.x - this.radius < 0 || this.x + this.radius > canvas.width)
+        ) {
           this.dx *= -1;
-          this.x = this.x < this.radius ? this.radius : canvas.width - this.radius;
+          this.x =
+            this.x < this.radius ? this.radius : canvas.width - this.radius;
         }
-        if (canvas && (this.y - this.radius < 0 || this.y + this.radius > canvas.height)) {
+        if (
+          canvas &&
+          (this.y - this.radius < 0 || this.y + this.radius > canvas.height)
+        ) {
           this.dy *= -1;
-          this.y = this.y < this.radius ? this.radius : canvas.height - this.radius;
+          this.y =
+            this.y < this.radius ? this.radius : canvas.height - this.radius;
         }
       }
       this.draw(ctx, images);
@@ -186,11 +222,12 @@ const CanvasComponent: React.FC = () => {
 
   useEffect(() => {
     const techKeys = Object.keys(images);
+    const canvas = canvasRef.current;
     const initialBalls = techKeys.map((key) =>
       createBall(
-        Math.random() * (canvasRef.current?.width || 0),
-        Math.random() * (canvasRef.current?.height || 0),
-        30,
+        canvas ? canvas.width / 2 : 0,
+        canvas ? canvas.height / 2 : 0,
+        isMobile ? 30 : 40,
         key
       )
     );
@@ -220,7 +257,9 @@ const CanvasComponent: React.FC = () => {
       const { offsetX, offsetY } = event;
 
       balls.forEach((ball) => {
-        const dist = Math.sqrt((ball.x - offsetX) ** 2 + (ball.y - offsetY) ** 2);
+        const dist = Math.sqrt(
+          (ball.x - offsetX) ** 2 + (ball.y - offsetY) ** 2
+        );
         if (dist < ball.radius + 10) {
           ball.isDragging = true;
           ball.startX = ball.x;
@@ -232,15 +271,34 @@ const CanvasComponent: React.FC = () => {
 
     const handleMouseMove = (event: MouseEvent) => {
       const { offsetX, offsetY } = event;
+      let tooltipVisible = false;
+      let tooltipText = "";
+      let tooltipX = 0;
+      let tooltipY = 0;
 
       balls.forEach((ball) => {
-        const dist = Math.sqrt((ball.x - offsetX) ** 2 + (ball.y - offsetY) ** 2);
-        if (dist < ball.radius + 10 && canvas) {
-          canvas.style.cursor = "grabbing";
+        const dist = Math.sqrt(
+          (ball.x - offsetX) ** 2 + (ball.y - offsetY) ** 2
+        );
+        if (dist < ball.radius + 10) {
+          tooltipVisible = true;
+          tooltipText = `${ball.imageKey
+            .charAt(0)
+            .toUpperCase()}${ball.imageKey.slice(1)}`;
+          tooltipX = ball.x;
+          tooltipY = ball.y - ball.radius - 20; // Adjusted to position above the ball
+          if (canvas) canvas.style.cursor = "grabbing";
         }
         if (ball.isDragging) {
           ball.applyDrag(offsetX, offsetY);
         }
+      });
+
+      setTooltip({
+        visible: tooltipVisible,
+        text: tooltipText,
+        x: tooltipX,
+        y: tooltipY,
       });
     };
 
@@ -273,9 +331,26 @@ const CanvasComponent: React.FC = () => {
   }, [balls]);
 
   return (
-    <div className="">
-      <canvas ref={canvasRef} className="bg-gray-200" />
-    </div>
+    <>
+      <canvas ref={canvasRef} />
+      {tooltip.visible && (
+        <div
+          style={{
+            position: "absolute",
+            left: tooltip.x , // Adjusted to center horizontally
+            top: tooltip.y+120,
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            color: "white",
+            padding: "5px",
+            borderRadius: "3px",
+            pointerEvents: "none",
+            transform: "translateX(-50%)", // Center the tooltip
+          }}
+        >
+          {tooltip.text}
+        </div>
+      )}
+    </>
   );
 };
 
