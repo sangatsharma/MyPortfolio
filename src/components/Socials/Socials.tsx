@@ -32,8 +32,8 @@ const handleDownload = () => {
 
 const Socials: React.FC<SocialsProps> = () => {
   return (
-    <div>
-      <div className={`flex  gap-6 mt-4`}>
+    <div className="justify-center">
+      <div className={`flex  gap-6 mt-4 justify-center md:justify-start`}>
         {socials.map((social) => (
           <Tooltip key={social.id} content={social.name}>
             <Link to={social.url} aria-label={social.name}>
@@ -47,7 +47,9 @@ const Socials: React.FC<SocialsProps> = () => {
           </Tooltip>
         ))}
       </div>
-      <ResumeButton isDarkMode={false} onDownload={handleDownload} />
+      <div className="flex w-full  justify-center md:justify-start">
+        <ResumeButton isDarkMode={false} onDownload={handleDownload} />
+      </div>
     </div>
   );
 };
