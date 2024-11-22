@@ -26,3 +26,36 @@ body.dark-mode {
   background-size: cover;
   color: white;
 }
+
+
+
+.BubbleText {
+  transition:
+    0.35s font-weight,
+    0.35s color;
+}
+
+.BubbleText:hover {
+  font-weight: 900;
+  color: rgb(238, 242, 255);
+}
+
+/* To the right */
+.BubbleText:hover + .BubbleText {
+  font-weight: 900;
+  color: rgb(199, 210, 254);
+}
+
+.BubbleText:hover + .BubbleText + .BubbleText {
+  font-weight: 300;
+}
+
+/* To the left */
+.BubbleText:has(+ .BubbleText:hover) {
+  font-weight: 500;
+  color: rgb(199, 210, 254);
+}
+
+.BubbleText:has(+ .BubbleText + .BubbleText:hover) {
+  font-weight: 300;
+}

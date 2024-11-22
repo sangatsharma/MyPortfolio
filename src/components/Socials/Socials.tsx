@@ -1,7 +1,7 @@
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa"; // Import icons from react-icons
 import { Link } from "react-router-dom";
 import Tooltip from "./Tooltip"; // Import the custom Tooltip component
-import { ResumeButton } from "./ResumeButton";
+import { ActionButton } from "./ActionButton";
 
 interface SocialsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -33,7 +33,7 @@ const handleDownload = () => {
 const Socials: React.FC<SocialsProps> = () => {
   return (
     <div className="justify-center">
-      <div className={`flex  gap-6 mt-4 justify-center md:justify-start`}>
+      <div className={`flex  gap-3 mt-4 justify-center md:justify-start`}>
         {socials.map((social) => (
           <Tooltip key={social.id} content={social.name}>
             <Link to={social.url} aria-label={social.name}>
@@ -47,8 +47,8 @@ const Socials: React.FC<SocialsProps> = () => {
           </Tooltip>
         ))}
       </div>
-      <div className="flex w-full  justify-center md:justify-start">
-        <ResumeButton isDarkMode={false} onDownload={handleDownload} />
+      <div className="flex w-full gap-4  justify-center md:justify-start">
+        <ActionButton isDarkMode={false} onClick={handleDownload} text="See my resume" />
       </div>
     </div>
   );

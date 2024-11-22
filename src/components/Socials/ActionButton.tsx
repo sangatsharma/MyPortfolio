@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FileUser } from "lucide-react";
 
-interface ResumeButtonProps {
+
+interface ActionButtonProps {
+  text:string
   isDarkMode: boolean;
-  onDownload: () => void;
+  onClick: () => void;
 }
 
-export const ResumeButton: React.FC<ResumeButtonProps> = ({
+export const ActionButton: React.FC<ActionButtonProps> = ({
+  text,
   isDarkMode,
-  onDownload,
+  onClick,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -44,7 +46,7 @@ export const ResumeButton: React.FC<ResumeButtonProps> = ({
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={onDownload}
+        onClick={onClick}
         className={`
           relative 
           z-10
@@ -95,16 +97,6 @@ export const ResumeButton: React.FC<ResumeButtonProps> = ({
             transition: { duration: 0.3 },
           }}
         >
-          <motion.div animate={{}} transition={{ duration: 0.3 }}>
-            <FileUser
-              className={`
-                transition-all 
-                duration-300
-              `}
-              size={22}
-            />
-          </motion.div>
-
           <motion.span
             animate={{
               letterSpacing: isHovered ? "0.03em" : "0em",
@@ -112,7 +104,7 @@ export const ResumeButton: React.FC<ResumeButtonProps> = ({
             transition={{ duration: 0.3 }}
             className="font-semibold tracking-wide uppercase text-xs"
           >
-            See my Resume
+           {text}
           </motion.span>
         </motion.div>
       </motion.button>
