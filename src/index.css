@@ -5,12 +5,9 @@
 :root {
   --bgColor: #223344;
   --bgColor2: #090a0f;
-  --accentColor: #fff;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
-
 }
 
 body {
@@ -63,4 +60,28 @@ body.dark-mode {
 
 .BubbleText:has(+ .BubbleText + .BubbleText:hover) {
   font-weight: 300;
+}
+
+/* Scrollbar container */
+::-webkit-scrollbar {
+  width: 10px; /* Width for vertical scrollbars */
+  height: 8px;
+  /* Height for horizontal scrollbars */
+}
+
+/* Scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background: #414141; /* Light gray background */
+}
+
+/* Scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #a8a8a8; /* Blue thumb */
+  border-radius: 6px; /* Rounded corners */
+  border: 1px solid #060606; /* Creates padding effect */
+}
+
+/* Scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2980b9; /* Darker blue on hover */
 }
