@@ -8,7 +8,7 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
   return (
     <div className="flex flex-col text-center md:text-left">
       <Navbar />
-      <main className="mx-auto px-4 text-center md:text-left lg:px-[20%] mt-20 md:mt-20 h-[100svh] md:h-screen scroll-m-8">
+      <main className="mx-auto px-4 text-center md:text-left lg:px-[20%] mt-10 md:mt-20 h-[100svh] md:h-screen scroll-m-8">
         <Intro />
       </main>
       <div className="h-screen">

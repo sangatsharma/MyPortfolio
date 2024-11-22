@@ -6,7 +6,12 @@
   --bgColor: #223344;
   --bgColor2: #090a0f;
   --accentColor: #fff;
-} 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+
+}
 
 body {
   transition: background-color 0.3s, color 0.3s;
@@ -21,18 +26,18 @@ body.light-mode {
 }
 
 body.dark-mode {
-  background: radial-gradient(ellipse at center bottom, #1f2c39 0%, #000000 60%);
+  background: radial-gradient(
+    ellipse at center bottom,
+    #1f2c39 0%,
+    #000000 60%
+  );
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
 }
 
-
-
 .BubbleText {
-  transition:
-    0.35s font-weight,
-    0.35s color;
+  transition: 0.35s font-weight, 0.35s color;
 }
 
 .BubbleText:hover {
