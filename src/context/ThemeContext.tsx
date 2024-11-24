@@ -30,16 +30,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   // Load theme from localStorage or system preference
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    updateMetaThemeColor(systemPrefersDark);
     if (savedTheme) {
       setIsDarkMode(savedTheme === "dark");
       updateHtmlClass(savedTheme === "dark");
     } else {
-      const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
+
       setIsDarkMode(systemPrefersDark);
       updateHtmlClass(systemPrefersDark);
-      updateMetaThemeColor(systemPrefersDark);
+      
     }
 
     // Listen for system theme changes

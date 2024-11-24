@@ -51,7 +51,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
           relative 
           z-10
           
-          h-12
+          h-10
           flex w-auto
           items-center 
           justify-center 
