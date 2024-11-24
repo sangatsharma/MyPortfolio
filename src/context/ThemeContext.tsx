@@ -39,6 +39,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       ).matches;
       setIsDarkMode(systemPrefersDark);
       updateHtmlClass(systemPrefersDark);
+      updateMetaThemeColor(systemPrefersDark);
     }
 
     // Listen for system theme changes
@@ -47,6 +48,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       if (!localStorage.getItem("theme")) {
         setIsDarkMode(e.matches);
         updateHtmlClass(e.matches);
+        updateMetaThemeColor(e.matches);
       }
     };
 
@@ -64,6 +66,22 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     localStorage.setItem("theme", newTheme ? "dark" : "light");
     updateHtmlClass(newTheme);
   };
+
+  // Update the meta theme color for mobile browsers
+  const updateMetaThemeColor = (isDarkMode: boolean) => {
+    const metaTag = document.querySelector('meta[name="theme-color"]');
+    const themeColor = isDarkMode ? "#1a1a1a" : "#2980b9"; // Dark or Light color
+    if (metaTag) {
+      metaTag.setAttribute("content", themeColor);
+    } else {
+      // Create the meta tag if it doesn't exist
+      const newMetaTag = document.createElement("meta");
+      newMetaTag.setAttribute("name", "theme-color");
+      newMetaTag.setAttribute("content", themeColor);
+      document.head.appendChild(newMetaTag);
+    }
+  };
+  
 
   // Update the HTML `class` attribute for Tailwind CSS
   const updateHtmlClass = (isDark: boolean) => {
