@@ -83,7 +83,7 @@ body.dark-mode {
 
 /* Scrollbar thumb on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #2980b9; /* Darker blue on hover */
+  background: #485d6b; /* Darker blue on hover */
 }
 
 /* cursor follower */
@@ -101,4 +101,5 @@ body.dark-mode {
   transition: transform 0.1s ease-out; /* Smooth movement */
   z-index: 9999; /* Keep it above all other elements */
 }
+
 
