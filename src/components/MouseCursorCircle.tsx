@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const CursorFollower = () => {
+const MouseCursorCircle = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -24,4 +24,4 @@ const CursorFollower = () => {
   );
 };
 
-export default CursorFollower;
+export default MouseCursorCircle;

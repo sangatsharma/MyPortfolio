@@ -1,7 +1,7 @@
 import * as React from "react";
 import Navbar from "../components/Navbar";
 import Intro from "../components/Hero";
-import CursorFollower from "../components/Cursorfollower";
+import CursorFollower from "../components/MouseCursorCircle";
 
 interface IHomePageProps {}
 
