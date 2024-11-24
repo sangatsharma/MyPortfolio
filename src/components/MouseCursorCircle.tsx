@@ -16,7 +16,7 @@ const MouseCursorCircle = () => {
 
   return (
     <div
-      className="cursor-indicator"
+      className="cursor-indicator hidden md:block"
       style={{
         transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
       }}

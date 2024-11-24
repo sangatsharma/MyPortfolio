@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
 
   return (
     <motion.nav
-      className="bg-transparent backdrop-blur-md sticky top-0 z-45 w-full"
+      className="bg-transparent backdrop-blur-md sticky top-0 z-30 w-full"
       initial="hidden"
       animate="visible"
       variants={navVariants}

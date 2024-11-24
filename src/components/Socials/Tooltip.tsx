@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useThemeContext } from '../../context/ThemeContext';
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   delay = 0.2 
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const {isDarkMode} = useThemeContext();
 
   // Positioning and arrow styles
   const getPositionStyles = () => {
@@ -26,7 +28,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             left: '50%', 
             translateX: '-50%' 
           },
-          arrowClasses: 'bottom-[-6px] left-1/2 -translate-x-1/2 rotate-45 border-b border-r border-black bg-black',
+          arrowClasses: `bottom-[-6px] left-1/2 z-40 -translate-x-1/2 rotate-45 border-b border-r ${isDarkMode ? 'bg-black border-black' : 'bg-white border-white'}`,
           arrowStyle: { borderBottomColor: 'black' }
         };
       case 'bottom':
@@ -36,7 +38,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             left: '50%', 
             translateX: '-50%' 
           },
-          arrowClasses: 'top-[-6px] left-1/2 -translate-x-1/2 rotate-45 border-t border-l border-black bg-black',
+          arrowClasses: `top-[-6px] left-1/2 z-40 -translate-x-1/2 rotate-45 border-t border-l ${isDarkMode ? 'bg-black border-black' : 'bg-white border-white'}`,
           arrowStyle: { borderTopColor: 'black' }
         };
       case 'left':
@@ -46,7 +48,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             top: '50%', 
             translateY: '-50%' 
           },
-          arrowClasses: 'right-[-6px] top-1/2 -translate-y-1/2 rotate-45 border-r border-t border-black bg-black',
+          arrowClasses: `right-[-6px] top-1/2 z-40 -translate-y-1/2 rotate-45 border-r border-t ${isDarkMode ? 'bg-black border-black' : 'bg-white border-white'}`,
           arrowStyle: { borderRightColor: 'black' }
         };
       case 'right':
@@ -56,7 +58,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             top: '50%', 
             translateY: '-50%' 
           },
-          arrowClasses: 'left-[-6px] top-1/2 -translate-y-1/2 rotate-45 border-l border-b border-black bg-black',
+          arrowClasses: `left-[-6px] top-1/2 z-40 -translate-y-1/2 rotate-45 border-l border-b ${isDarkMode ? 'bg-black border-black' : 'bg-white border-white'}`,
           arrowStyle: { borderLeftColor: 'black' }
         };
     }
@@ -65,7 +67,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const { tooltipPosition, arrowClasses, arrowStyle } = getPositionStyles();
 
   return (
-    <div className="relative inline-block">
+    <div className="relative z-50 inline-block">
       <div 
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
@@ -96,7 +98,7 @@ const Tooltip: React.FC<TooltipProps> = ({
               duration: delay,
               ease: "easeOut" 
             }}
-            className="absolute z-50 bg-black text-white px-3 py-2 rounded-md text-sm shadow-lg"
+            className={`absolute z-50  px-3 py-2 rounded-md text-sm shadow-lg ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`} 
             style={{
               transform: `translate(${tooltipPosition.translateX || 0}, ${tooltipPosition.translateY || 0})`
             }}
