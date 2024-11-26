@@ -97,7 +97,7 @@ body.dark-mode {
   border: 0px solid rgba(255, 255, 255, 0.4); /* Optional border */
   border-radius: 50%;
   pointer-events: none; /* Ensures the circle doesn't block interactions */
-  transform: translate3d(200, 100, 80);
+  transform: translate3d(200, 200, 180);
   transition: transform 0.1s ease-out; /* Smooth movement */
   z-index: 9999; /* Keep it above all other elements */
 }

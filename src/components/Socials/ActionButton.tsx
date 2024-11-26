@@ -26,10 +26,10 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
       hoverShadow: "hover:shadow-md hover:shadow-gray-300/50",
     },
     dark: {
-      background: "bg-black",
-      text: "text-white",
+      background: "bg-gray-100",
+      text: "text-black",
       border: "border-gray-800",
-      accentColor: "bg-white",
+      accentColor: "bg-green-500",
       hoverBackground: "bg-gray-900",
       hoverShadow: "hover:shadow-md hover:shadow-gray-800/50",
     },

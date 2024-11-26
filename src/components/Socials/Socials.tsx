@@ -2,6 +2,7 @@ import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa"; // Import ico
 import { Link } from "react-router-dom";
 import Tooltip from "./Tooltip"; // Import the custom Tooltip component
 import { ActionButton } from "./ActionButton";
+import { useThemeContext } from "../../context/ThemeContext";
 
 interface SocialsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -27,13 +28,16 @@ const socials = [
 ];
 
 const handleDownload = () => {
-  window.open("/public/Sangat_Resume.pdf", "_blank");
+  window.open("/Sangat_Resume.pdf", "_blank");
 };
 
 const Socials: React.FC<SocialsProps> = () => {
+const {isDarkMode} = useThemeContext()
   return (
     <div className="justify-center">
-      <div className={`flex  gap-3 mt-4 justify-center md:justify-start`}>
+
+
+      <div className={`flex  gap-3 mt-8 justify-center md:justify-start`}>
         {socials.map((social) => (
           <Tooltip key={social.id} content={social.name}>
             <Link to={social.url} aria-label={social.name}>
@@ -48,8 +52,10 @@ const Socials: React.FC<SocialsProps> = () => {
         ))}
       </div>
       <div className="flex w-full gap-4  justify-center md:justify-start">
-        <ActionButton isDarkMode={false} onClick={handleDownload} text="See my resume" />
+        <ActionButton isDarkMode={isDarkMode} onClick={handleDownload} text="View CV" />
+        <ActionButton isDarkMode={isDarkMode} onClick={handleDownload} text="Hire Me" />
       </div>
+      
     </div>
   );
 };

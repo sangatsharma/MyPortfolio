@@ -60,31 +60,31 @@ const Navbar: React.FC = () => {
               <motion.a
                 key={link.label}
                 href={link.href}
-                className="text-white px-3 py-2 rounded-md text-md font-medium bg-opacity-90 hover:bg-gray-500 transition-all duration-300"
+                className={`text-white px-3 py-2 rounded-md text-md font-medium bg-opacity-90 ${
+                  isDarkMode ? "hover:bg-gray-500/70" : "hover:bg-blue-200/30"
+                }  transition-all duration-300`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 {link.label}
               </motion.a>
             ))}
-           <span className="hover:scale-125 transition-all ease-in"> 
-           <DarkModeSwitch
-            
-            style={{ marginBottom: "0.5rem", marginTop: "0.4rem" }}
-            checked={!isDarkMode}
-            onChange={toggleTheme}
-            size={24}
-            moonColor="white"
-            sunColor="yellow"
-          
-          />
-            </span> 
+            <button className="hover:scale-125 transition-all ease-in">
+              <DarkModeSwitch
+                style={{ marginBottom: "0.5rem", marginTop: "0.4rem" }}
+                checked={!isDarkMode}
+                onChange={toggleTheme}
+                size={24}
+                moonColor="white"
+                sunColor="yellow"
+              />
+            </button>
           </motion.div>
 
           {/* Mobile Hamburger */}
           <div className="flex md:hidden">
-          <DarkModeSwitch
-              style={{  marginTop: "0.7rem",marginRight:"0.5rem" }}
+            <DarkModeSwitch
+              style={{ marginTop: "0.7rem", marginRight: "0.5rem" }}
               checked={!isDarkMode}
               onChange={toggleTheme}
               size={26}
@@ -103,7 +103,6 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        
         <motion.div
           className="md:hidden bg-transparent backdrop-blur-3xl text-center w-full h-screen "
           initial={{ height: 0, opacity: 0 }}

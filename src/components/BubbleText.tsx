@@ -7,7 +7,7 @@ interface IBubbletext {
 }
 const BubbleText:React.FC<IBubbletext> = ({text}) => {
   return (
-    <p className="text-5xl font-bold ">
+    <p className="text-5xl md:text-6xl font-bold ">
       {text.split("").map((child, idx) => (
         <span className="BubbleText" key={idx}>
           {child}

@@ -39,7 +39,7 @@ const Intro: React.FC<IntroProps> = () => {
   const smoothScrollY = useSpring(scrollY, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   // Create transform values based on smoothed scroll position
@@ -84,72 +84,72 @@ const Intro: React.FC<IntroProps> = () => {
 
   return (
     <div>
-              {/* Floating elements with combined animations */}
-              <motion.div
-  style={{ y: y1 }}
-  initial="initial"
-  animate="floating"
-  variants={floatingAnimation}
-  className="absolute left-44 top-50 z-0"
->
-  <motion.div
-    animate={{
-      rotate: 360,
-      scale: [1, 1.1, 1],
-    }}
-    transition={{
-      rotate: {
-        duration: 20,
-        repeat: Infinity,
-        ease: "linear",
-      },
-      scale: {
-        duration: 5,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      },
-    }}
-    className={`w-20 h-20 md:w-32 md:h-32 rounded-full ${
-      isDarkMode
-        ? "bg-gradient-to-b from-blue-900 to-black"
-        : "bg-gradient-to-t from-blue-500 to-blue-300 opacity-60"
-    }`}
-  />
-</motion.div>
+      {/* Floating elements with combined animations */}
+      <motion.div
+        style={{ y: y1 }}
+        initial="initial"
+        animate="floating"
+        variants={floatingAnimation}
+        className="absolute left-44 top-50 z-0"
+      >
+        <motion.div
+          animate={{
+            rotate: 360,
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            rotate: {
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            },
+            scale: {
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            },
+          }}
+          className={`w-20 h-20 md:w-32 md:h-32 rounded-full ${
+            isDarkMode
+              ? "bg-gradient-to-b from-blue-900 to-black"
+              : "bg-gradient-to-t from-blue-500 to-blue-300 opacity-60"
+          }`}
+        />
+      </motion.div>
 
-<motion.div
-  style={{ y: y2 }}
-  initial="initial"
-  animate="floating"
-  variants={floatingAnimationAlt}
-  className="absolute right-20 bottom-20 z-0"
->
-  <motion.div
-    animate={{
-      rotate: -360,
-      scale: [1, 1.2, 1],
-    }}
-    transition={{
-      rotate: {
-        duration: 25,
-        repeat: Infinity,
-        ease: "linear",
-      },
-      scale: {
-        duration: 6,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      },
-    }}
-    className={`w-20 h-20 md:w-32 md:h-32 rounded-full ${
-      isDarkMode
-        ? "bg-gradient-to-b from-blue-900 to-black"
-        : "bg-gradient-to-t from-blue-500 to-blue-300 opacity-60"
-    }`}
-  />
-</motion.div>
+      <motion.div
+        style={{ y: y2 }}
+        initial="initial"
+        animate="floating"
+        variants={floatingAnimationAlt}
+        className="absolute right-20 bottom-20 z-0"
+      >
+        <motion.div
+          animate={{
+            rotate: -360,
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            rotate: {
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            },
+            scale: {
+              duration: 6,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            },
+          }}
+          className={`w-20 h-20 md:w-32 md:h-32 rounded-full ${
+            isDarkMode
+              ? "bg-gradient-to-b from-blue-900 to-black"
+              : "bg-gradient-to-t from-blue-500 to-blue-300 opacity-60"
+          }`}
+        />
+      </motion.div>
       <motion.div
         id="about"
         className="flex flex-col md:gap-12 md:flex-row py-5 px-5 h-auto mb-2"
@@ -157,14 +157,11 @@ const Intro: React.FC<IntroProps> = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-
-
-
         <div className="container md:w-2/3 md:order-1 order-2 border-red-400 z-10">
-          <h3 className="font-bold text-xl">
+          <h3 className="font-bold text-xl md:text-3xl">
             Hi there <span>👋</span>, I'm
           </h3>
-          <h1 className="text-3xl md:text-6xl font-semibold">{<BubbleText text={title}/>}</h1>
+          <h1>{<BubbleText text={title} />}</h1>
           <div
             className={`mt-4 flex justify-center md:justify-start text-left leading-4 flex-wrap gap-1 text-gray-400 ${
               isDarkMode ? "" : " text-white"
@@ -185,7 +182,7 @@ const Intro: React.FC<IntroProps> = () => {
 
           <Socials />
         </div>
-        <div className="md:order-2 order-1 md:w-1/3 mt-5 flex justify-center md:justify-start md:mt-0">
+        <div className="md:order-2 order-1 md:w-1/3 mt-2 flex justify-center md:justify-start md:mt-0">
           {/* Aside content goes here */}
           <IntroAside />
         </div>
