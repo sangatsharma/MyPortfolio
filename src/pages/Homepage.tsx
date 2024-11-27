@@ -37,8 +37,8 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
 
       <div className="h-auto bg-transparent/5">
         <ContactSection />
+        <footer className="text-center">Sangat Sharma</footer>
       </div>
-      <footer className="text-center">Sangat Sharma</footer>
     </div>
   );
 };

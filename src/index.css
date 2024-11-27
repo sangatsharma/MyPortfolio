@@ -16,7 +16,7 @@ body {
 }
 
 body.light-mode {
-  background: linear-gradient(45deg, #11c5ef 0%, #1172ef 100%);
+  background: linear-gradient(60deg, #568eef 0%, #a793ce 100%);
   color: white;
 }
 
@@ -98,4 +98,13 @@ body.dark-mode {
   transform: translate3d(200, 200, 180);
   transition: transform 0.1s ease-out; /* Smooth movement */
   z-index: 9999; /* Keep it above all other elements */
+}
+/* cursive text animation */
+@keyframes dash {
+  from {
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dashoffset: -200;
+  }
 }

@@ -6,8 +6,8 @@ interface IAboutPageProps {}
 const AboutPage: React.FunctionComponent<IAboutPageProps> = () => {
   const { isDarkMode } = useThemeContext();
   return (
-    <div className="mt-5 h-auto p-2">
-      <section className="flex">
+    <div className="mt-2 h-auto p-2" id="">
+      <section className="flex hover:scale-110 transition-all duration-200">
         <svg
           width="86"
           height="84"
@@ -42,11 +42,11 @@ const AboutPage: React.FunctionComponent<IAboutPageProps> = () => {
             strokeWidth="3"
           ></path>
         </svg>
-        <h1 className="text-2xl md:text-4xl mt-4">A Little About Me</h1>
+        <h1 className="text-2xl md:text-4xl mt-8 md:mt-0 ">A Little About Me</h1>
       </section>
       <section>
         <p
-          className={`text-md md:pl-12 px-5 md:text-md ${
+          className={`text-md md:pl-12 px-5 md:text-xl ${
             isDarkMode ? " text-[#b9bbc0]" : "text-white"
           } `}
         >
@@ -60,6 +60,7 @@ const AboutPage: React.FunctionComponent<IAboutPageProps> = () => {
           boundaries of web development.
         </p>
       </section>
+      <span ></span>
     </div>
   );
 };

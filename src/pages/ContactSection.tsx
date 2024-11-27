@@ -1,7 +1,9 @@
 import { Github, Twitter, Dribbble, Facebook } from "lucide-react";
 import ContactForm from "../components/ContactForm";
+import { useThemeContext } from "../context/ThemeContext";
 
 const ContactSection = () => {
+  const { isDarkMode } = useThemeContext();
   return (
     <div className="bg-transparent  gap-2 flex flex-col md:flex-row justify-center  items-center w-full">
       <div className="items-center justify-center flex flex-col w-full md:w-1/2">
@@ -13,9 +15,15 @@ const ContactSection = () => {
         {/* Grid layout for contact info */}
         <div className="grid grid-cols-2 md:grid-cols-2 gap-6 order-2 mx-2">
           {/* Phone Card */}
-          <div className="bg-neutral-800/80 rounded-xl p-4 relative">
+          <div
+            className={`${
+              isDarkMode
+                ? "bg-neutral-800/80"
+                : "bg-gradient-to-br from-[#a094d1] to-[#3a81ce] "
+            } rounded-xl p-4 relative`}
+          >
             <div className="absolute -top-5 left-6">
-              <div className="bg-neutral-800 p-3 rounded-full">
+              <div className="bg-neutral-800/50 p-3 rounded-full">
                 <div className="bg-yellow-500 p-2 rounded-full">
                   <svg
                     className="w-6 h-6"
@@ -34,15 +42,21 @@ const ContactSection = () => {
               </div>
             </div>
             <div className="mt-6">
-              <p className="text-gray-400 mb-2">Phone</p>
+              <p className="text-gray-100 mb-2">Phone</p>
               <p className="text-white md:text-xl text-md ">+123 45 678 90</p>
             </div>
           </div>
 
           {/* Email Card */}
-          <div className="bg-neutral-800/80  rounded-xl p-4 relative text-wrap">
+          <div
+            className={`${
+              isDarkMode
+                ? "bg-neutral-800/80"
+                : "bg-gradient-to-br from-[#a094d1] to-[#3a81ce]"
+            } rounded-xl p-4 relative`}
+          >
             <div className="absolute -top-5  md:right-8 right-6">
-              <div className="bg-neutral-800 p-3 rounded-full">
+              <div className="bg-neutral-800/50 p-3 rounded-full">
                 <div className="bg-yellow-500 p-2 rounded-full">
                   <svg
                     className="w-6 h-6"
@@ -61,7 +75,7 @@ const ContactSection = () => {
               </div>
             </div>
             <div className="mt-6 ">
-              <p className="text-gray-400 mb-2">Email</p>
+              <p className="text-gray-100 mb-2">Email</p>
               <p className="text-white md:text-xl flex flex-wrap overflow-visible">
                 sangatsharma2 @gmail.com
               </p>
@@ -69,9 +83,15 @@ const ContactSection = () => {
           </div>
 
           {/* Address Card */}
-          <div className="bg-neutral-800/80  rounded-xl p-4 relative">
+          <div
+            className={`${
+              isDarkMode
+                ? "bg-neutral-800/80"
+                : "bg-gradient-to-br from-[#a094d1] to-[#3a81ce]"
+            } rounded-xl p-4 relative`}
+          >
             <div className="absolute -top-5 left-6">
-              <div className="bg-neutral-800 p-3 rounded-full">
+              <div className="bg-neutral-800/50 p-3 rounded-full">
                 <div className="bg-yellow-500 p-2 rounded-full">
                   <svg
                     className="w-6 h-6"
@@ -96,15 +116,21 @@ const ContactSection = () => {
               </div>
             </div>
             <div className="mt-6">
-              <p className="text-gray-400 mb-2">Address</p>
+              <p className="text-gray-100 mb-2">Address</p>
               <p className="text-white md:text-xl">Pokhara Nepal</p>
             </div>
           </div>
 
           {/* Social Media Card */}
-          <div className="bg-neutral-800/80  rounded-xl p-6 relative">
-            <div className="absolute -top-5  right-8">
-              <div className="bg-neutral-800 p-3 rounded-full">
+          <div
+            className={`${
+              isDarkMode
+                ? "bg-neutral-800/80"
+                : "bg-gradient-to-br from-[#a094d1] to-[#3a81ce "
+            } rounded-xl p-4 relative`}
+          >
+            <div className="absolute -top-5  right-6">
+              <div className="bg-neutral-800/50 p-3 rounded-full">
                 <div className="bg-yellow-500 p-2 rounded-full">
                   <svg
                     className="w-6 h-6"
@@ -123,7 +149,7 @@ const ContactSection = () => {
               </div>
             </div>
             <div className="mt-6">
-              <p className="text-gray-400 mb-2">Follow Me</p>
+              <p className="text-gray-100 mb-2">Follow Me</p>
               <div className="flex space-x-4">
                 <Github className="w-6 h-6 text-white hover:text-yellow-500 cursor-pointer" />
                 <Twitter className="w-6 h-6 text-white hover:text-yellow-500 cursor-pointer" />

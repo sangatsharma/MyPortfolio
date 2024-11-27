@@ -4,6 +4,7 @@ import { Sling as Hamburger } from "hamburger-react";
 import { useThemeContext } from "../context/ThemeContext";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isDarkMode, toggleTheme } = useThemeContext();
@@ -48,7 +49,10 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <motion.div className="flex items-center" variants={linkVariants}>
-            <h1 className="text-3xl font-bold text-white">SS</h1>
+            <img
+              className="h-24 p-2 md:h-28 w-30"
+              src="/images/navbarLogo.png"
+            />
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -57,17 +61,15 @@ const Navbar: React.FC = () => {
             variants={linkVariants}
           >
             {navLinks.map((link) => (
-              <motion.a
+              <a
                 key={link.label}
                 href={link.href}
                 className={`text-white px-3 py-2 rounded-md text-md font-medium bg-opacity-90 ${
                   isDarkMode ? "hover:bg-gray-500/70" : "hover:bg-blue-200/30"
                 }  transition-all duration-300`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 {link.label}
-              </motion.a>
+              </a>
             ))}
             <button className="hover:scale-125 transition-all ease-in">
               <DarkModeSwitch

@@ -51,7 +51,7 @@ const ContactForm: React.FC = () => {
       }  rounded-lg`}
     >
       {/* Form title */}
-      <h2 className="text-2xl font-bold mt-2">Send me a message</h2>
+      <h2 className="text-2xl font-bold mt-2 py-2">Send me a message</h2>
       <form onSubmit={formik.handleSubmit} className="space-y-2">
         <div>
           {/* Message textarea */}

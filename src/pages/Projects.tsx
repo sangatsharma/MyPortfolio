@@ -2,6 +2,8 @@ import React from "react";
 import { FaArrowRight, FaGithub } from "react-icons/fa";
 import { FaPlayCircle } from "react-icons/fa";
 import Tooltip from "../components/Socials/Tooltip";
+import { useThemeContext } from "../context/ThemeContext";
+import { CursiveText } from "../components/CursiveText";
 
 interface ProjectCardProps {
   isDarkMode: boolean;
@@ -24,7 +26,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   return (
     <div
-      className={`p-6 rounded-lg shadow-md transition-all duration-300`}
+      className={`p-6 rounded-lg shadow-md  transition-all duration-300`}
       style={
         isDarkMode
           ? {
@@ -32,7 +34,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 "radial-gradient(ellipse at center bottom, #0b0f13 0%, #121a22 100%)",
             }
           : {
-              background: "transparent",
+              background:
+                "radial-gradient(ellipse at center bottom, #a793ce 0%, #4e9ef6 100%)",
             }
       }
     >
@@ -47,8 +50,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="flex flex-col w-full md:w-2/3">
           <span className="flex gap-2 justify-between">
             <h3 className="text-xl font-bold mb-2">{projectTitle}</h3>
-            <span className="flex gap-2">
-              <Tooltip content="Demo" placement="top">
+            <span className="flex gap-2 justify-center items-center z-0">
+              <Tooltip content="Preview" placement="top">
                 <button
                   onClick={() => {
                     window.open(liveUrl, "_blank");
@@ -115,7 +118,7 @@ const Projects: React.FC = () => {
       title: "Cook It Yourself",
       description:
         "A social platform for food enthusiasts to explore, save, and share their favorite recipes. Users can discover new recipes, share their own creations, and engage with the community through ratings and comments.",
-      img: "https://th.bing.com/th/id/OIF.vXmgoZsvZLErAXBk73eRyQ?w=332&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+      img: "/images/ciy.png",
       tech: [
         "React",
         "Typescript",
@@ -145,17 +148,16 @@ const Projects: React.FC = () => {
       githubUrl: "https://github.com/sangatsharma/Tictactoe",
     },
   ];
-
+  const { isDarkMode } = useThemeContext();
   return (
-    <section className="py-12 px-2 text-white">
-      <h2 className="text-2xl text-center md:text-left md:text-4xl mb-2">
-        Projects
-      </h2>
+    <section className="py-12 px-2 text-white " id="about">
+      <CursiveText className="text-white hover:text-teal-200 text-8xl transition-all duration-500 transform hover:scale-105" text="My Works"/>
+
       <div className="max-w-4xl mx-auto flex flex-col gap-2">
         {projects.map((item) => (
-          <div key={item.id} className="px-4 py-2 rounded-lg">
+          <div key={item.id} className="px-4 py-2 text-left rounded-lg">
             <ProjectCard
-              isDarkMode={true}
+              isDarkMode={isDarkMode}
               projectTitle={item.title}
               projectDescription={item.description}
               technologies={item.tech}
@@ -167,7 +169,7 @@ const Projects: React.FC = () => {
         ))}
       </div>
       <button
-        className="text-md w-full justify-center md:justify-start text-center md:text-left md:text-xl mb-2 flex items-center gap-1 text-blue-500/70 hover:translate-x-4 transition-all duration-300 cursor-pointer"
+        className={`text-md w-full justify-center md:justify-start text-center md:text-left md:text-xl md:pl-10 mb-2 flex items-center gap-1 hover:translate-x-4 transition-all duration-300 cursor-pointer`}
         onClick={() => {
           window.open(
             "https://github.com/sangatsharma?tab=repositories",

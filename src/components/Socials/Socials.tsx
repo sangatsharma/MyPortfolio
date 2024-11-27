@@ -32,12 +32,10 @@ const handleDownload = () => {
 };
 
 const Socials: React.FC<SocialsProps> = () => {
-const {isDarkMode} = useThemeContext()
+  const { isDarkMode } = useThemeContext();
   return (
     <div className="justify-center">
-
-
-      <div className={`flex  gap-3 mt-8 justify-center md:justify-start`}>
+      <div className={`flex   gap-3 mt-8 justify-center md:justify-start`}>
         {socials.map((social) => (
           <Tooltip key={social.id} content={social.name}>
             <Link to={social.url} aria-label={social.name}>
@@ -51,11 +49,39 @@ const {isDarkMode} = useThemeContext()
           </Tooltip>
         ))}
       </div>
+      <span className="flex md:text-left text-center justify-center md:justify-start">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 200 20"
+          fill="none"
+          stroke="currentColor"
+          className="w-40 h-6 text-teal-200 text-primary-500"
+        >
+          <path
+            d="M2 10c20-8 50-8 100 0s80 8 96 0"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M2 12c20 5 50 5 100 0s80-5 96 0"
+            strokeWidth="1"
+            strokeLinecap="round"
+            className="opacity-50"
+          />
+        </svg>
+      </span>
       <div className="flex w-full gap-4  justify-center md:justify-start">
-        <ActionButton isDarkMode={isDarkMode} onClick={handleDownload} text="View CV" />
-        <ActionButton isDarkMode={isDarkMode} onClick={handleDownload} text="Hire Me" />
+        <ActionButton
+          isDarkMode={isDarkMode}
+          onClick={handleDownload}
+          text="View CV"
+        />
+        <ActionButton
+          isDarkMode={isDarkMode}
+          onClick={handleDownload}
+          text="Hire Me"
+        />
       </div>
-      
     </div>
   );
 };
