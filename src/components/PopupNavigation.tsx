@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   FiSearch,
@@ -121,7 +121,6 @@ const PopupNavigation: React.FC = () => {
     acc[item.category].push(item);
     return acc;
   }, {} as Record<string, NavItem[]>);
-  console.log(groupedNavItems);
 
   return (
     <>

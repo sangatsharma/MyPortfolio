@@ -25,7 +25,7 @@ interface ThemeProviderProps {
 
 // ThemeProvider component
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
   // Load theme from localStorage or system preference
   useEffect(() => {

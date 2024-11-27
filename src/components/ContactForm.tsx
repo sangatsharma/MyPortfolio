@@ -35,7 +35,7 @@ const ContactForm: React.FC = () => {
   });
 
   // Define base styles for input and textarea fields
-  const baseInputStyles = `w-full relative  p-2 rounded-lg border focus:outline-none focus:ring-2 ${
+  const baseInputStyles = `w-full relative  p-4 rounded-lg border focus:outline-none focus:ring-2 ${
     isDarkMode
       ? "bg-gray-700 border-gray-600 text-white focus:ring-gray-400"
       : "bg-gray-100 border-gray-300 text-gray-800 focus:ring-orange-500"
@@ -46,12 +46,12 @@ const ContactForm: React.FC = () => {
 
   return (
     <div
-      className={`px-4 py-2   relative text-left ${
-        isDarkMode ? "bg-gray-800/60 text-white" : "bg-blue-300 text-white-800 "
-      } shadow-lg rounded-lg`}
+      className={`p-4 backdrop-blur-sm text-left ${
+        isDarkMode ? "bg-transparent text-white" : "bg-transparent text-white-800 "
+      }  rounded-lg`}
     >
       {/* Form title */}
-      <h2 className="text-2xl font-bold mb-4 pt-2">Lets Talk</h2>
+      <h2 className="text-2xl font-bold mt-2">Send me a message</h2>
       <form onSubmit={formik.handleSubmit} className="space-y-2">
         <div>
           {/* Message textarea */}

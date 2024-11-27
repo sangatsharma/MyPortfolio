@@ -3,16 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --bgColor: #223344;
-  --bgColor2: #090a0f;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: black;
 }
 
 body {
   transition: background-color 0.3s, color 0.3s;
-  min-height: 100vh;
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
 }
@@ -101,5 +99,3 @@ body.dark-mode {
   transition: transform 0.1s ease-out; /* Smooth movement */
   z-index: 9999; /* Keep it above all other elements */
 }
-
-

@@ -3,10 +3,10 @@ import ContactForm from "../components/ContactForm";
 
 const ContactSection = () => {
   return (
-    <div className="bg-transparent py-8 flex flex-col justify-center md:justify-start gap-8 h-auto  items-center w-full">
-      <div className="items-center justify-center flex flex-col">
+    <div className="bg-transparent  gap-2 flex flex-col md:flex-row justify-center  items-center w-full">
+      <div className="items-center justify-center flex flex-col w-full md:w-1/2">
         {/* Get in touch text */}
-        <div className="text-white text-4xl mb-8  font-bold  order-1">
+        <div className="text-white text-4xl mb-3 font-bold order-1">
           Get in touch
         </div>
 
@@ -41,7 +41,7 @@ const ContactSection = () => {
 
           {/* Email Card */}
           <div className="bg-neutral-800/80  rounded-xl p-4 relative text-wrap">
-            <div className="absolute -top-5 md:left-6 right-6">
+            <div className="absolute -top-5  md:right-8 right-6">
               <div className="bg-neutral-800 p-3 rounded-full">
                 <div className="bg-yellow-500 p-2 rounded-full">
                   <svg
@@ -63,7 +63,7 @@ const ContactSection = () => {
             <div className="mt-6 ">
               <p className="text-gray-400 mb-2">Email</p>
               <p className="text-white md:text-xl flex flex-wrap overflow-visible">
-               sangatsharma2 @gmail.com
+                sangatsharma2 @gmail.com
               </p>
             </div>
           </div>
@@ -103,7 +103,7 @@ const ContactSection = () => {
 
           {/* Social Media Card */}
           <div className="bg-neutral-800/80  rounded-xl p-6 relative">
-            <div className="absolute -top-5 md:left-6 right-6">
+            <div className="absolute -top-5  right-8">
               <div className="bg-neutral-800 p-3 rounded-full">
                 <div className="bg-yellow-500 p-2 rounded-full">
                   <svg
@@ -134,7 +134,7 @@ const ContactSection = () => {
           </div>
         </div>
       </div>
-      <div className="w-full px-2 ">
+      <div className="w-full md:w-1/2 lg:w-1/3 p-2 h-full">
         <ContactForm />
       </div>
     </div>

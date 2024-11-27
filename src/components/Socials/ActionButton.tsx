@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-
 interface ActionButtonProps {
-  text:string
+  text: string;
   isDarkMode: boolean;
   onClick: () => void;
 }
@@ -50,8 +49,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
         className={`
           relative 
           z-10
-          
-          h-10
+          h-12
           flex w-auto
           items-center 
           justify-center 
@@ -102,9 +100,9 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
               letterSpacing: isHovered ? "0.03em" : "0em",
             }}
             transition={{ duration: 0.3 }}
-            className="font-semibold tracking-wide uppercase text-xs"
+            className="font-semibold tracking-wide uppercase text-sm"
           >
-           {text}
+            {text}
           </motion.span>
         </motion.div>
       </motion.button>

@@ -8,7 +8,7 @@ const AnimatedBackground = () => {
   }, []);
 
   return (
-    <div className="absolute w-full z-0 h-full overflow-hidden">
+    <div className="absolute w-full z-0 overflow-hidden">
       <svg
         viewBox="0 0 800 600"
         className={`w-full h-full transition-opacity duration-5000  ${

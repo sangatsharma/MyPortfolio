@@ -157,14 +157,14 @@ const Intro: React.FC<IntroProps> = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="container md:w-2/3 md:order-1 order-2 border-red-400 z-10">
+        <div className="container md:w-2/3 md:mt-20 md:order-1 order-2 border-red-400 z-10">
           <h3 className="font-bold text-xl md:text-3xl">
             Hi there <span>👋</span>, I'm
           </h3>
           <h1>{<BubbleText text={title} />}</h1>
           <div
-            className={`mt-4 flex justify-center md:justify-start text-left leading-4 flex-wrap gap-1 text-gray-400 ${
-              isDarkMode ? "" : " text-white"
+            className={`mt-4 text-xl flex justify-center md:justify-start text-left leading-4 flex-wrap gap-1 text-gray-400 ${
+              isDarkMode ? "text-purple-600" : "text-yellow-100"
             }`}
           >
             {subTitle.map((value, index) => (
@@ -187,7 +187,7 @@ const Intro: React.FC<IntroProps> = () => {
           <IntroAside />
         </div>
       </motion.div>
-      <div>
+      <div className="h-auto">
         <ScrollIndicator />
       </div>
     </div>
