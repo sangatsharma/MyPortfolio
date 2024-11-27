@@ -15,7 +15,7 @@ function App() {
     {
       path: "/",
       // element: <RootPageLayout />,
-      // errorElement: <PageNotFound />,
+      errorElement: <HomePage />,
       children: [
         { path: "/", element: <HomePage /> },
 
