@@ -5,10 +5,10 @@ import { useThemeContext } from "../context/ThemeContext";
 const ContactSection = () => {
   const { isDarkMode } = useThemeContext();
   return (
-    <div className="bg-transparent  gap-2 flex flex-col md:flex-row justify-center  items-center w-full">
+    <div className="bg-transparent  gap-2 flex flex-col md:flex-row justify-center  items-center w-full" id="contact">
       <div className="items-center justify-center flex flex-col w-full md:w-1/2">
         {/* Get in touch text */}
-        <div className="text-white text-4xl mb-3 font-bold order-1">
+        <div className="text-white text-4xl mb-3 mt-2 font-bold order-1">
           Get in touch
         </div>
 

@@ -1,5 +1,5 @@
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa"; // Import icons from react-icons
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Tooltip from "./Tooltip"; // Import the custom Tooltip component
 import { ActionButton } from "./ActionButton";
 import { useThemeContext } from "../../context/ThemeContext";
@@ -10,19 +10,19 @@ const socials = [
   {
     id: 1,
     name: "LinkedIn",
-    url: "https://linkedin.com",
-    icon: FaLinkedin, // Assign imported icon directly
+    url: "https://www.linkedin.com/in/sangat-sharma-080b6a215/",
+    icon: FaLinkedin, 
   },
   {
     id: 2,
     name: "GitHub",
-    url: "https://github.com",
+    url: "https://github.com/sangatsharma/",
     icon: FaGithub,
   },
   {
     id: 3,
     name: "Email",
-    url: "mailto:example@example.com",
+    url: "mailto:sangatsharma2@gmail.com",
     icon: FaEnvelope,
   },
 ];
@@ -33,6 +33,7 @@ const handleDownload = () => {
 
 const Socials: React.FC<SocialsProps> = () => {
   const { isDarkMode } = useThemeContext();
+  const navigate=useNavigate();
   return (
     <div className="justify-center">
       <div className={`flex   gap-3 mt-8 justify-center md:justify-start`}>
@@ -78,7 +79,7 @@ const Socials: React.FC<SocialsProps> = () => {
         />
         <ActionButton
           isDarkMode={isDarkMode}
-          onClick={handleDownload}
+          onClick={()=>{navigate("/#contact")}}
           text="Hire Me"
         />
       </div>

@@ -3,17 +3,17 @@ import { motion } from "framer-motion";
 import { Sling as Hamburger } from "hamburger-react";
 import { useThemeContext } from "../context/ThemeContext";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
-
+import { Link } from "react-scroll";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isDarkMode, toggleTheme } = useThemeContext();
   const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "home" },
+    { label: "About", href: "about" },
+    { label: "Projects", href: "projects" },
+    { label: "Skills", href: "skills" },
+    { label: "Contact", href: "contact" },
   ];
 
   const navVariants = {
@@ -61,15 +61,18 @@ const Navbar: React.FC = () => {
             variants={linkVariants}
           >
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
-                className={`text-white px-3 py-2 rounded-md text-md font-medium bg-opacity-90 ${
+                to={link.href}
+                smooth={true}
+                duration={500}
+                offset={300}
+                className={`text-white px-3 py-2 rounded-md text-md font-medium bg-opacity-90 cursor-pointer ${
                   isDarkMode ? "hover:bg-gray-500/70" : "hover:bg-blue-200/30"
                 }  transition-all duration-300`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <button className="hover:scale-125 transition-all ease-in">
               <DarkModeSwitch
@@ -112,18 +115,24 @@ const Navbar: React.FC = () => {
           transition={{ duration: 0.3 }}
         >
           {navLinks.map((link) => (
-            <motion.a
+            <motion.div
               key={link.label}
-              href={link.href}
               className="block text-white px-4 py-3 hover:text-black hover:bg-gray-50 transition-all duration-300"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.3 }}
-              onClick={() => setIsOpen(false)}
             >
-              {link.label}
-            </motion.a>
+              <Link
+                to={link.href}
+                smooth={true}
+                duration={500}
+         
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
       )}

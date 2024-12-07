@@ -91,6 +91,7 @@ const Intro: React.FC<IntroProps> = () => {
         animate="floating"
         variants={floatingAnimation}
         className="absolute left-44 top-50 z-0"
+        id="home"
       >
         <motion.div
           animate={{

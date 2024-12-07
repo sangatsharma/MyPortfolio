@@ -150,7 +150,7 @@ const Projects: React.FC = () => {
   ];
   const { isDarkMode } = useThemeContext();
   return (
-    <section className="py-12 px-2 text-white " id="about">
+    <section className="py-12 px-2 text-white " id="projects">
       <CursiveText className="text-white hover:text-teal-200 text-8xl transition-all duration-500 transform hover:scale-105" text="My Works"/>
 
       <div className="max-w-4xl mx-auto flex flex-col gap-2">

@@ -13,12 +13,12 @@ interface IHomePageProps {}
 const HomePage: React.FunctionComponent<IHomePageProps> = () => {
   const { isDarkMode } = useThemeContext();
   return (
-    <div className="flex flex-col gap-12 md:gap-0 text-center md:text-left">
+    <div className="flex flex-col md:gap-0 text-center md:text-left">
       <PopupNavigation />
       <CursorFollower />
       <Navbar />
       <main
-        className="mx-auto h-auto  px-4 text-center md:text-left lg:px-[20%] md:mt-14"
+        className="mx-auto h-auto px-4 text-center md:text-left lg:px-[20%] md:mt-14"
         style={
           isDarkMode
             ? {
