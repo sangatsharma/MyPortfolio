@@ -5,7 +5,7 @@ interface CursiveTextProps {
   className?: string;
 }
 
-export const CursiveText: React.FC<CursiveTextProps> = ({
+export const AnimatedSvgText: React.FC<CursiveTextProps> = ({
   className = "",
   text,
 }) => {

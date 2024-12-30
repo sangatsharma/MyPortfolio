@@ -21,7 +21,7 @@ const ScrollIndicator: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex justify-center md:justify-start p-10 items-center h-20 mt-5 relative z-10">
+    <div className="flex justify-center md:justify-start items-center h-20 md:mt-5 relative z-10">
       <motion.div
         initial={{ y: 0 }}
         animate={{ y: [0, 15, 0] }}

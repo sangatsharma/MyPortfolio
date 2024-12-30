@@ -13,11 +13,11 @@ body {
   transition: background-color 0.3s, color 0.3s;
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
+  color:white
 }
 
 body.light-mode {
   background: linear-gradient(60deg, #568eef 0%, #a793ce 100%);
-  color: white;
 }
 
 body.dark-mode {
@@ -28,11 +28,10 @@ body.dark-mode {
   );
   background-repeat: no-repeat;
   background-size: cover;
-  color: white;
 }
 
 .BubbleText {
-  transition: 0.35s font-weight, 0.35s color;
+  transition: 0.35s font-weight, 0.35s;
 }
 
 .BubbleText:hover {

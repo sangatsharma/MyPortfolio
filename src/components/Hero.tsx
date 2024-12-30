@@ -83,14 +83,14 @@ const Intro: React.FC<IntroProps> = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto flex flex-col justify-center relative h-auto">
       {/* Floating elements with combined animations */}
       <motion.div
         style={{ y: y1 }}
         initial="initial"
         animate="floating"
         variants={floatingAnimation}
-        className="absolute left-44 top-50 z-0"
+        className="absolute left-4 top-5 z-0"
         id="home"
       >
         <motion.div
@@ -152,17 +152,17 @@ const Intro: React.FC<IntroProps> = () => {
         />
       </motion.div>
       <motion.div
-        id="about"
+        id="intro"
         className="flex flex-col md:gap-12 md:flex-row py-5 px-5 h-auto mb-2"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 1 }}
       >
         <div className="container md:w-2/3 md:mt-20 md:order-1 order-2 border-red-400 z-10">
           <h3 className="font-bold text-xl md:text-3xl">
             Hi there <span>👋</span>, I'm
           </h3>
-          <h1>{<BubbleText text={title} />}</h1>
+          <h1 className="text-white">{<BubbleText text={title} />}</h1>
           <div
             className={`mt-4 text-xl flex justify-center md:justify-start text-left leading-4 flex-wrap gap-1 text-gray-400 ${
               isDarkMode ? "text-purple-600" : "text-yellow-100"
@@ -183,7 +183,7 @@ const Intro: React.FC<IntroProps> = () => {
 
           <Socials />
         </div>
-        <div className="md:order-2 order-1 md:w-1/3 mt-2 flex justify-center md:justify-start md:mt-0">
+        <div className="md:order-2 order-1 md:w-1/3 mt-2 flex justify-center md:justify-start md:mt-12">
           {/* Aside content goes here */}
           <IntroAside />
         </div>

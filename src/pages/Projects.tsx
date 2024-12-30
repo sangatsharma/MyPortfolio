@@ -3,7 +3,7 @@ import { FaArrowRight, FaGithub } from "react-icons/fa";
 import { FaPlayCircle } from "react-icons/fa";
 import Tooltip from "../components/Socials/Tooltip";
 import { useThemeContext } from "../context/ThemeContext";
-import { CursiveText } from "../components/CursiveText";
+import { AnimatedSvgText } from "../components/AnimatedSvgText";
 
 interface ProjectCardProps {
   isDarkMode: boolean;
@@ -151,7 +151,10 @@ const Projects: React.FC = () => {
   const { isDarkMode } = useThemeContext();
   return (
     <section className="py-12 px-2 text-white " id="projects">
-      <CursiveText className="text-white hover:text-teal-200 text-8xl transition-all duration-500 transform hover:scale-105" text="My Works"/>
+      <AnimatedSvgText
+        className="text-white hover:text-teal-200 text-8xl transition-all duration-500 transform hover:scale-105"
+        text="My Works"
+      />
 
       <div className="max-w-4xl mx-auto flex flex-col gap-2">
         {projects.map((item) => (
@@ -169,7 +172,7 @@ const Projects: React.FC = () => {
         ))}
       </div>
       <button
-        className={`text-md w-full justify-center md:justify-start text-center md:text-left md:text-xl md:pl-10 mb-2 flex items-center gap-1 hover:translate-x-4 transition-all duration-300 cursor-pointer`}
+        className={`text-md justify-center md:justify-start text-center md:text-xl md:pl-10 ml-6 mb-2 flex items-center gap-1 hover:translate-x-4 hover:underline transition-all duration-300 cursor-pointer`}
         onClick={() => {
           window.open(
             "https://github.com/sangatsharma?tab=repositories",
