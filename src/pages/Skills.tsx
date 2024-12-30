@@ -16,13 +16,12 @@ const skills: { [key: string]: string } = {
 const Skills: React.FC = () => {
   return (
     <>
-      <h1 className="text-xl font-bold text-center mt-6">Tech I Work With
-      </h1>
+      <h1 className="text-xl font-bold text-center mt-6">Tech I Work With</h1>
       <div className="flex flex-wrap gap-2 justify-center p-5">
         {Object.keys(skills).map((skill, index) => (
           <div
             key={index}
-            className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center bg-gray-200 shadow-md"
+            className="md:w-20 md:h-20 h-16 w-16 rounded-full overflow-hidden flex items-center justify-center bg-gray-200 shadow-md"
           >
             <img
               src={skills[skill]}

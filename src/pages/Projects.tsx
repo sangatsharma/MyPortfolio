@@ -44,7 +44,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <img
             src={imageUrl}
             alt={projectTitle}
-            className="w-full h-56 object-contain"
+            className="w-full h-48 object-cover"
           />
         </div>
         <div className="flex flex-col w-full md:w-2/3">
@@ -99,7 +99,7 @@ const Projects: React.FC = () => {
       title: "Easy Url Shortener",
       description:
         "A powerful URL shortener that generates compact, shareable links and provides personalized QR codes for easy access.",
-      img: "https://th.bing.com/th/id/OIF.vXmgoZsvZLErAXBk73eRyQ?w=332&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+      img: "/images/easyurl.png",
       tech: [
         "React",
         "Typescript",
@@ -118,7 +118,7 @@ const Projects: React.FC = () => {
       title: "Cook It Yourself",
       description:
         "A social platform for food enthusiasts to explore, save, and share their favorite recipes. Users can discover new recipes, share their own creations, and engage with the community through ratings and comments.",
-      img: "/images/ciy.png",
+      img: "/images/ciylight.png",
       tech: [
         "React",
         "Typescript",
@@ -136,7 +136,7 @@ const Projects: React.FC = () => {
       title: "Tic-Tac-Toe",
       description:
         "A classic Tic-Tac-Toe game with offline AI and real-time multiplayer modes for a fun, interactive experience.",
-      img: "https://th.bing.com/th/id/OIF.vXmgoZsvZLErAXBk73eRyQ?w=332&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+      img: "/images/tictactoe.png",
       tech: [
         "Javascript",
         "Websockets",
