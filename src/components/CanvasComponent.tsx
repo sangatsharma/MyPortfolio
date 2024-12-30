@@ -1,6 +1,6 @@
 // src/components/CanvasComponent.tsx
 import React, { useEffect, useRef, useState } from "react";
-
+import { useThemeContext } from "../context/ThemeContext";
 
 // Ball interface to type the Ball objects
 interface Ball {
@@ -26,11 +26,12 @@ interface Ball {
   calculateReleaseVelocity: (dx: number, dy: number) => void;
 }
 
-const maxVelocity = 8; // Define maxVelocity
-const minVelocity = 1; // Define minVelocity
-let isMobile = false; // Define isMobile
+const maxVelocity = 8;
+const minVelocity = 1; 
+let isMobile = window.innerWidth < 768;
 
 const CanvasComponent: React.FC = () => {
+  const {isDarkMode} = useThemeContext();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [images, setImages] = useState<{ [key: string]: HTMLImageElement }>({});
   const [balls, setBalls] = useState<Ball[]>([]);
@@ -43,12 +44,18 @@ const CanvasComponent: React.FC = () => {
 
   useEffect(() => {
     const imageSources = {
-      react: "/images/reactjs.png",
-      node: "/images/nodejs.png",
-      express: "/images/express.png",
-      mongodb: "/images/mongodb.png",
-      html: "/images/html.png",
-      css: "/images/css.png",
+      reactJs: "/images/reactjs.svg",
+      nodeJs: "/images/nodejs.svg",
+      expressJs: "/images/express.svg",
+      mongoDB: "/images/mongodb.svg",
+      html5: "/images/html.svg",
+      css3: "/images/css.svg",
+      Javascript: "/images/js.svg",
+      nextJs: "/images/nextjs.svg",
+      tailwindCss: "/images/tailwindcss.svg",
+      typescript: "/images/typescript.svg",
+      redis: "/images/redis.svg",
+      tanstackQuery: "/images/tanstackquery.svg",
     };
 
     // Load the images
@@ -70,7 +77,7 @@ const CanvasComponent: React.FC = () => {
     const canvas = canvasRef.current;
     if (canvas) {
       const updateCanvasSize = () => {
-        canvas.width = window.innerWidth;
+        canvas.width = window.innerWidth * 0.8;
         canvas.height = window.innerHeight * 0.8;
       };
       window.addEventListener("resize", updateCanvasSize);
@@ -99,7 +106,7 @@ const CanvasComponent: React.FC = () => {
     draw: function (ctx, images) {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.99)";
+      ctx.fillStyle =isDarkMode? "rgb(18, 40, 75)":"rgba(255, 255, 255, 0.99)"; // Use backgroundColor property
       ctx.fill();
       ctx.closePath();
 
@@ -108,6 +115,7 @@ const CanvasComponent: React.FC = () => {
       if (img) {
         const imgSize = this.radius * 1.4;
         ctx.drawImage(
+          
           img,
           this.x - imgSize / 2,
           this.y - imgSize / 2,
@@ -202,7 +210,7 @@ const CanvasComponent: React.FC = () => {
 
             // If the speed is greater than minVelocity, reduce it gradually using damping
             if (speed > minVelocity) {
-              const dampingFactor = 0.8; // Slightly reduce velocity
+              const dampingFactor = 0.6; // Slightly reduce velocity
               ball.dx *= dampingFactor;
               ball.dy *= dampingFactor;
 
@@ -223,16 +231,44 @@ const CanvasComponent: React.FC = () => {
   useEffect(() => {
     const techKeys = Object.keys(images);
     const canvas = canvasRef.current;
-    const initialBalls = techKeys.map((key) =>
-      createBall(
-        canvas ? canvas.width / 2 : 0,
-        canvas ? canvas.height / 2 : 0,
-        isMobile ? 30 : 40,
-        key
-      )
-    );
+    let initialBalls: Ball[] = [];
+
+    if (isMobile) {
+      const half = Math.ceil(techKeys.length / 2);
+      const firstRowKeys = techKeys.slice(0, half);
+      const secondRowKeys = techKeys.slice(half);
+
+      initialBalls = [
+        ...firstRowKeys.map((key, index) =>
+          createBall(
+            (canvas ? canvas.width / (firstRowKeys.length + 1) : 0) * (index + 1),
+            canvas ? canvas.height / 3 : 0,
+            20,
+            key
+          )
+        ),
+        ...secondRowKeys.map((key, index) =>
+          createBall(
+            (canvas ? canvas.width / (secondRowKeys.length + 1) : 0) * (index + 1),
+            canvas ? (canvas.height / 3)/1.1: 0,
+            20,
+            key
+          )
+        ),
+      ];
+    } else {
+      initialBalls = techKeys.map((key) =>
+        createBall(
+          canvas ? canvas.width / 2 : 0,
+          canvas ? canvas.height / 2 : 0,
+          40,
+          key
+        )
+      );
+    }
+
     setBalls(initialBalls);
-  }, [images]);
+  }, [images, isMobile]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -248,7 +284,7 @@ const CanvasComponent: React.FC = () => {
     };
 
     render();
-  }, [balls, images]);
+  }, [balls, images,isDarkMode]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -337,8 +373,8 @@ const CanvasComponent: React.FC = () => {
         <div
           style={{
             position: "absolute",
-            left: tooltip.x , // Adjusted to center horizontally
-            top: tooltip.y+120,
+            left: tooltip.x, // Adjusted to center horizontally
+            top: tooltip.y + 120,
             backgroundColor: "rgba(0, 0, 0, 0.7)",
             color: "white",
             padding: "5px",

@@ -40,11 +40,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       }
     >
       <div className="flex flex-col md:flex-row items-center gap-6">
-        <div className="flex-shrink-0 w-full md:w-1/3 overflow-hidden rounded-lg">
+        <div className="flex-shrink-0 w-full md:w-1/3 overflow-hidden rounded-lg transition-transform duration-300 hover:scale-110">
           <img
             src={imageUrl}
             alt={projectTitle}
-            className="w-full h-40 object-cover transition-transform duration-300 hover:scale-110"
+            className="w-full h-56 object-contain"
           />
         </div>
         <div className="flex flex-col w-full md:w-2/3">
@@ -150,9 +150,9 @@ const Projects: React.FC = () => {
   ];
   const { isDarkMode } = useThemeContext();
   return (
-    <section className="py-12 px-2 text-white " id="projects">
+    <section className="py-4 px-2 relative text-white " id="projects">
       <AnimatedSvgText
-        className="text-white hover:text-teal-200 text-8xl transition-all duration-500 transform hover:scale-105"
+        className=" hover:text-teal-200 text-8xl transition-all duration-500 transform hover:scale-105"
         text="My Works"
       />
 

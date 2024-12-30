@@ -42,7 +42,7 @@ const AboutPage: React.FunctionComponent<IAboutPageProps> = () => {
             strokeWidth="3"
           ></path>
         </svg>
-        <h1 className="text-2xl items-center md:text-3xl mr-12">
+        <h1 className="text-2xl items-center md:text-3xl mr-12 text-white">
           A Little About Me
         </h1>
       </section>
