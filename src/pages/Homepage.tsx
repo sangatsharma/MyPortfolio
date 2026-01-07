@@ -8,9 +8,7 @@ import AboutPage from "./About";
 import Projects from "./Projects";
 import Skills from "./Skills";
 
-interface IHomePageProps {}
-
-const HomePage: React.FunctionComponent<IHomePageProps> = () => {
+const HomePage: React.FunctionComponent = () => {
   return (
     <div className="flex flex-col md:gap-0 text-center md:text-left">
       <PopupNavigation />

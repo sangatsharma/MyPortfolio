@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useThemeContext } from "./context/ThemeContext.jsx";
 import { useEffect } from "react";
 import HomePage from "./pages/Homepage.js";
+import CSRF from "./components/csrf-injector/csrf-test.js";
 
 function App() {
   const { isDarkMode } = useThemeContext();
@@ -19,10 +20,10 @@ function App() {
       children: [
         { path: "/", element: <HomePage /> },
 
-        // {
-        //   path: "/bookmarks",
-        //   element: <PrivateRoute element={BookmarkRecipes} />,
-        // },
+        {
+          path: "/test",
+          element: <CSRF />,
+        },
       ],
     },
   ]);
