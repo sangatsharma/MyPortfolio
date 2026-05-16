@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useThemeContext } from "./context/ThemeContext.jsx";
 import { useEffect } from "react";
 import HomePage from "./pages/Homepage.js";
-import CSRF from "./components/csrf-injector/csrf-test.js";
 
 function App() {
   const { isDarkMode } = useThemeContext();
@@ -17,14 +16,7 @@ function App() {
       path: "/",
       // element: <RootPageLayout />,
       errorElement: <HomePage />,
-      children: [
-        { path: "/", element: <HomePage /> },
-
-        {
-          path: "/test",
-          element: <CSRF />,
-        },
-      ],
+      children: [{ path: "/", element: <HomePage /> }],
     },
   ]);
   return <RouterProvider router={router} />;
