@@ -1,6 +1,7 @@
-import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa"; // Import icons from react-icons
-import { Link, useNavigate } from "react-router-dom";
-import Tooltip from "./Tooltip"; // Import the custom Tooltip component
+"use client";
+
+import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
+import Tooltip from "./Tooltip";
 import { ActionButton } from "./ActionButton";
 import { useThemeContext } from "../../context/ThemeContext";
 
@@ -33,20 +34,19 @@ const handleDownload = () => {
 
 const Socials: React.FC<SocialsProps> = () => {
   const { isDarkMode } = useThemeContext();
-  const navigate=useNavigate();
   return (
     <div className="justify-center">
-      <div className={`flex   gap-3 mt-8 justify-center md:justify-start`}>
+      <div className={`flex gap-3 mt-8 justify-center md:justify-start`}>
         {socials.map((social) => (
           <Tooltip key={social.id} content={social.name}>
-            <Link to={social.url} aria-label={social.name}>
+            <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name}>
               <social.icon
-                size={32} // Add size prop to the icon
-                color="white" // Add color prop to the icon
-                className={`rounded-lg shadow-md hover:scale-105 `}
+                size={32}
+                color="white"
+                className={`rounded-lg shadow-md hover:scale-105`}
                 aria-label={social.name}
               />
-            </Link>
+            </a>
           </Tooltip>
         ))}
       </div>
@@ -79,7 +79,9 @@ const Socials: React.FC<SocialsProps> = () => {
         />
         <ActionButton
           isDarkMode={isDarkMode}
-          onClick={()=>{navigate("/#contact")}}
+          onClick={() => {
+            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+          }}
           text="Hire Me"
         />
       </div>

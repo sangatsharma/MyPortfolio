@@ -1,3 +1,5 @@
+"use client";
+
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useThemeContext } from "../context/ThemeContext";

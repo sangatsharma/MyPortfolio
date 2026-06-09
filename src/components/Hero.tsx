@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useThemeContext } from "../context/ThemeContext";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
@@ -160,7 +162,7 @@ const Intro: React.FC<IntroProps> = () => {
       >
         <div className="container md:w-2/3 md:mt-20 md:order-1 order-2 border-red-400 z-10">
           <h3 className="font-bold text-xl md:text-3xl">
-            Hi there <span>👋</span>, I'm
+            Hi there <span>👋</span>, I&apos;m
           </h3>
           <h1 className="text-white">{<BubbleText text={title} />}</h1>
           <div

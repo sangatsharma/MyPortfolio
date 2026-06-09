@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Sling as Hamburger } from "hamburger-react";
@@ -52,6 +54,7 @@ const Navbar: React.FC = () => {
             <img
               className="h-24 p-2 md:h-28 w-30"
               src="/images/navbarLogo.png"
+              alt="Logo"
             />
           </motion.div>
 

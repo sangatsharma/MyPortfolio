@@ -13,7 +13,7 @@ body {
   transition: background-color 0.3s, color 0.3s;
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
-  color:white
+  color: white;
 }
 
 body.light-mode {
@@ -39,7 +39,6 @@ body.dark-mode {
   color: rgb(238, 242, 255);
 }
 
-/* To the right */
 .BubbleText:hover + .BubbleText {
   font-weight: 900;
   color: rgb(199, 210, 254);
@@ -49,7 +48,6 @@ body.dark-mode {
   font-weight: 300;
 }
 
-/* To the left */
 .BubbleText:has(+ .BubbleText:hover) {
   font-weight: 500;
   color: rgb(199, 210, 254);
@@ -59,46 +57,40 @@ body.dark-mode {
   font-weight: 300;
 }
 
-/* Scrollbar container */
 ::-webkit-scrollbar {
-  width: 10px; /* Width for vertical scrollbars */
+  width: 10px;
   height: 8px;
-  /* Height for horizontal scrollbars */
 }
 
-/* Scrollbar track (background) */
 ::-webkit-scrollbar-track {
-  background: #414141; /* Light gray background */
+  background: #414141;
 }
 
-/* Scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-  background: #a8a8a8; /* Blue thumb */
-  border-radius: 6px; /* Rounded corners */
-  border: 1px solid #060606; /* Creates padding effect */
+  background: #a8a8a8;
+  border-radius: 6px;
+  border: 1px solid #060606;
 }
 
-/* Scrollbar thumb on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #485d6b; /* Darker blue on hover */
+  background: #485d6b;
 }
 
-/* cursor follower */
 .cursor-indicator {
   position: fixed;
   top: 0;
   left: 0;
   width: 30px;
   height: 30px;
-  background: rgba(255, 255, 255, 0.4); /* Semi-transparent */
-  border: 0px solid rgba(255, 255, 255, 0.4); /* Optional border */
+  background: rgba(255, 255, 255, 0.4);
+  border: 0px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
-  pointer-events: none; /* Ensures the circle doesn't block interactions */
+  pointer-events: none;
   transform: translate3d(200, 200, 180);
-  transition: transform 0.1s ease-out; /* Smooth movement */
-  z-index: 9999; /* Keep it above all other elements */
+  transition: transform 0.1s ease-out;
+  z-index: 9999;
 }
-/* cursive text animation */
+
 @keyframes dash {
   from {
     stroke-dashoffset: 200;

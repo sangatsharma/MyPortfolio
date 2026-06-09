@@ -2,6 +2,8 @@
 
 
 
+"use client";
+
 interface IBubbletext {
     text: string;
 }
