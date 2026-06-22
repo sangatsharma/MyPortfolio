@@ -1,30 +1,58 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
-import Intro from "@/components/Hero";
-import CursorFollower from "@/components/MouseCursorCircle";
-import PopupNavigation from "@/components/PopupNavigation";
+import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import SkillsSection from "@/components/SkillsSection";
+import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
-import AboutPage from "@/components/About";
-import Projects from "@/components/Projects";
-import Skills from "@/components/Skills";
+
+const ThreeBackground = dynamic(
+  () => import("@/components/ThreeBackground"),
+  { ssr: false }
+);
+
+const ParticleBackground = dynamic(
+  () => import("@/components/ParticleBackground"),
+  { ssr: false }
+);
+
+const ParallaxBackground = dynamic(
+  () => import("@/components/ParallaxLayers").then((m) => ({ default: m.ParallaxBackground })),
+  { ssr: false }
+);
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col md:gap-0 text-center md:text-left">
-      <PopupNavigation />
-      <CursorFollower />
+    <SmoothScroll>
       <Navbar />
-      <main className="mx-auto md:max-w-7xl h-auto px-4 text-center md:text-left lg:px-36 z-10 md:mt-14">
-        <Intro />
-        <AboutPage />
-        <Skills />
-        <Projects />
-      </main>
-      <div className="flex flex-col justify-center items-center mx-auto h-auto bg-transparent/5 rounded-md">
+      <ThreeBackground />
+      <ParticleBackground />
+      <ParallaxBackground />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
         <ContactSection />
-        <footer className="text-center">Sangat Sharma</footer>
-      </div>
-    </div>
+      </main>
+      <footer className="border-t border-white/5 py-8">
+        <div className="section-container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-white/30">
+              &copy; {new Date().getFullYear()} Sangat Sharma. Built with Next.js,
+              Three.js & Framer Motion.
+            </p>
+            <div className="flex items-center gap-4 text-xs text-white/20 font-mono">
+              <span>const footer = () =&gt; innovation</span>
+              <span className="w-1 h-1 rounded-full bg-white/20" />
+              <span>deployed with &hearts;</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </SmoothScroll>
   );
 }

@@ -1,146 +1,149 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Sling as Hamburger } from "hamburger-react";
-import { useThemeContext } from "../context/ThemeContext";
-import { DarkModeSwitch } from "react-toggle-dark-mode";
-import { Link } from "react-scroll";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Code2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { isDarkMode, toggleTheme } = useThemeContext();
-  const navLinks = [
-    { label: "Home", href: "home" },
-    { label: "About", href: "about" },
-    { label: "Projects", href: "projects" },
-    { label: "Skills", href: "skills" },
-    { label: "Contact", href: "contact" },
-  ];
+const sections = [
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
 
-  const navVariants = {
-    hidden: { y: -50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        delayChildren: 0.3,
-        staggerChildren: 0.1,
-      },
-    },
-  };
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
-  const linkVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.5 },
-    },
-  };
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 50);
+
+      const current = sections.find((section) => {
+        const el = document.getElementById(section.id);
+        if (!el) return false;
+        const rect = el.getBoundingClientRect();
+        return rect.top <= 200 && rect.bottom >= 200;
+      });
+      if (current) setActiveSection(current.id);
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  function scrollTo(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+    setMobileOpen(false);
+  }
 
   return (
-    <motion.nav
-      className="bg-transparent backdrop-blur-md sticky top-0 z-30 w-full"
-      initial="hidden"
-      animate="visible"
-      variants={navVariants}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <motion.div className="flex items-center" variants={linkVariants}>
-            <img
-              className="h-24 p-2 md:h-28 w-30"
-              src="/images/navbarLogo.png"
-              alt="Logo"
-            />
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <motion.div
-            className="hidden md:flex space-x-4"
-            variants={linkVariants}
-          >
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                smooth={true}
-                duration={500}
-                offset={300}
-                className={`text-white px-3 py-2 rounded-md text-md font-medium bg-opacity-90 cursor-pointer ${
-                  isDarkMode ? "hover:bg-gray-500/70" : "hover:bg-blue-200/30"
-                }  transition-all duration-300`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <button className="hover:scale-125 transition-all ease-in">
-              <DarkModeSwitch
-                style={{ marginBottom: "0.5rem", marginTop: "0.4rem" }}
-                checked={!isDarkMode}
-                onChange={toggleTheme}
-                size={24}
-                moonColor="white"
-                sunColor="yellow"
-              />
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className={cn(
+          "fixed top-0 inset-x-0 z-50 transition-all duration-500",
+          scrolled
+            ? "bg-black/80 backdrop-blur-xl border-b border-white/5"
+            : "bg-transparent"
+        )}
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            <button
+              onClick={() => scrollTo("about")}
+              className="flex items-center gap-2 group"
+            >
+              <Code2 className="w-5 h-5 text-primary group-hover:rotate-12 transition-transform" />
+              <span className="font-semibold text-sm tracking-tight">
+                Sangat<span className="text-primary/50">.</span>dev
+              </span>
             </button>
-          </motion.div>
 
-          {/* Mobile Hamburger */}
-          <div className="flex md:hidden">
-            <DarkModeSwitch
-              style={{ marginTop: "0.7rem", marginRight: "0.5rem" }}
-              checked={!isDarkMode}
-              onChange={toggleTheme}
-              size={26}
-              moonColor="white"
-              sunColor="yellow"
-            />
-            <Hamburger
-              toggled={isOpen}
-              toggle={setIsOpen}
-              size={24}
-              color="white"
-            />
+            <nav className="hidden md:flex items-center gap-1">
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => scrollTo(section.id)}
+                  className={cn(
+                    "relative px-4 py-2 text-sm rounded-lg transition-all duration-300",
+                    activeSection === section.id
+                      ? "text-white"
+                      : "text-white/40 hover:text-white/70"
+                  )}
+                >
+                  {section.label}
+                  {activeSection === section.id && (
+                    <motion.div
+                      layoutId="nav-indicator"
+                      className="absolute inset-0 bg-white/5 rounded-lg"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                </button>
+              ))}
+              <a
+                href="/Sangat_Resume.pdf"
+                target="_blank"
+                className="ml-2 px-4 py-2 text-sm rounded-lg bg-primary/20 text-primary hover:bg-primary/30 transition-all"
+              >
+                Resume
+              </a>
+            </nav>
+
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-all"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
-      </div>
+      </motion.header>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <motion.div
-          className="md:hidden bg-transparent backdrop-blur-3xl text-center w-full h-screen "
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          {navLinks.map((link) => (
-            <motion.div
-              key={link.label}
-              className="block text-white px-4 py-3 hover:text-black hover:bg-gray-50 transition-all duration-300"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Link
-                to={link.href}
-                smooth={true}
-                duration={500}
-         
-                onClick={() => setIsOpen(false)}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden"
+          >
+            <div className="flex flex-col items-center justify-center h-full gap-6">
+              {sections.map((section, i) => (
+                <motion.button
+                  key={section.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  onClick={() => scrollTo(section.id)}
+                  className="text-2xl font-medium text-white/60 hover:text-white transition-colors"
+                >
+                  {section.label}
+                </motion.button>
+              ))}
+              <motion.a
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                href="/Sangat_Resume.pdf"
+                target="_blank"
+                className="mt-4 px-6 py-3 rounded-xl bg-primary/20 text-primary hover:bg-primary/30 transition-all"
               >
-                {link.label}
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-      )}
-    </motion.nav>
+                Resume
+              </motion.a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
-};
-
-export default Navbar;
+}

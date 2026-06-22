@@ -1,169 +1,242 @@
 "use client";
 
-import { Github, Twitter, Dribbble, Facebook } from "lucide-react";
-import ContactForm from "./ContactForm";
-import { useThemeContext } from "../context/ThemeContext";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Send, Mail, MapPin, Phone, ArrowUpRight, Check } from "lucide-react";
+import { useMouseParallax } from "@/hooks/useMousePosition";
+import { personalInfo } from "@/lib/data";
 
-const ContactSection = () => {
-  const { isDarkMode } = useThemeContext();
+function MagneticButton({
+  children,
+  href,
+}: {
+  children: React.ReactNode;
+  href?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  function handleMouseMove(e: React.MouseEvent) {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
+    const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+    setPosition({ x, y });
+  }
+
+  function handleMouseLeave() {
+    setPosition({ x: 0, y: 0 });
+  }
+
+  const Component = href ? "a" : "button";
+  const props = href
+    ? { href, target: "_blank" as const, rel: "noopener noreferrer" }
+    : { type: "submit" as const };
+
   return (
     <div
-      className="bg-transparent md:max-w-7xl gap-2 flex flex-col md:flex-row justify-center items-center w-full"
-      id="contact"
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="inline-block"
     >
-      <div className="items-center justify-center flex flex-col w-full md:w-1/2">
-        <div className="text-white text-4xl mb-3 mt-2 font-bold order-1">
-          Get in touch
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-6 order-2 mx-2">
-          <div
-            className={`${
-              isDarkMode
-                ? "bg-neutral-800/80"
-                : "bg-gradient-to-br from-[#a094d1] to-[#3a81ce] "
-            } rounded-xl p-4 relative`}
-          >
-            <div className="absolute -top-5 left-6">
-              <div className="bg-neutral-800/50 p-3 rounded-full">
-                <div className="bg-yellow-500 p-2 rounded-full">
-                  <svg
-                    className="w-6 h-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="mt-6">
-              <p className="text-gray-100 mb-2">Phone</p>
-              <p className="text-white md:text-xl text-md ">+123 45 678 90</p>
-            </div>
-          </div>
-
-          <div
-            className={`${
-              isDarkMode
-                ? "bg-neutral-800/80"
-                : "bg-gradient-to-br from-[#a094d1] to-[#3a81ce]"
-            } rounded-xl p-4 relative`}
-          >
-            <div className="absolute -top-5 md:right-8 right-6">
-              <div className="bg-neutral-800/50 p-3 rounded-full">
-                <div className="bg-yellow-500 p-2 rounded-full">
-                  <svg
-                    className="w-6 h-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="mt-6 ">
-              <p className="text-gray-100 mb-2">Email</p>
-              <p className="text-white md:text-xl flex flex-wrap overflow-visible">
-                sangatsharma2 @gmail.com
-              </p>
-            </div>
-          </div>
-
-          <div
-            className={`${
-              isDarkMode
-                ? "bg-neutral-800/80"
-                : "bg-gradient-to-br from-[#a094d1] to-[#3a81ce]"
-            } rounded-xl p-4 relative`}
-          >
-            <div className="absolute -top-5 left-6">
-              <div className="bg-neutral-800/50 p-3 rounded-full">
-                <div className="bg-yellow-500 p-2 rounded-full">
-                  <svg
-                    className="w-6 h-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="mt-6">
-              <p className="text-gray-100 mb-2">Address</p>
-              <p className="text-white md:text-xl">Pokhara Nepal</p>
-            </div>
-          </div>
-
-          <div
-            className={`${
-              isDarkMode
-                ? "bg-neutral-800/80"
-                : "bg-gradient-to-br from-[#a094d1] to-[#3a81ce "
-            } rounded-xl p-4 relative`}
-          >
-            <div className="absolute -top-5 right-6">
-              <div className="bg-neutral-800/50 p-3 rounded-full">
-                <div className="bg-yellow-500 p-2 rounded-full">
-                  <svg
-                    className="w-6 h-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="mt-6">
-              <p className="text-gray-100 mb-2">Follow Me</p>
-              <div className="flex space-x-4">
-                <Github className="w-6 h-6 text-white hover:text-yellow-500 cursor-pointer" />
-                <Twitter className="w-6 h-6 text-white hover:text-yellow-500 cursor-pointer" />
-                <Dribbble className="w-6 h-6 text-white hover:text-yellow-500 cursor-pointer" />
-                <Facebook className="w-6 h-6 text-white hover:text-yellow-500 cursor-pointer" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="w-full md:w-1/2 lg:w-1/3 p-2 h-full">
-        <ContactForm />
-      </div>
+      <motion.div
+        animate={{ x: position.x, y: position.y }}
+        transition={{ type: "spring", stiffness: 150, damping: 15 }}
+      >
+        <Component
+          {...props}
+          className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-medium hover:shadow-lg hover:shadow-primary/20 transition-shadow duration-300 group"
+        >
+          {children}
+        </Component>
+      </motion.div>
     </div>
   );
-};
+}
 
-export default ContactSection;
+function FloatingContactLabel({ text, x, y, speed, mouseFactor }: {
+  text: string; x: number; y: number; speed: number; mouseFactor: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const scrollY = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
+  const { x: mx, y: my } = useMouseParallax(mouseFactor);
+
+  return (
+    <div ref={ref} className="absolute pointer-events-none" style={{ left: `${x}%`, top: `${y}%` }}>
+      <motion.div style={{ y: scrollY }}>
+        <motion.div
+          animate={{ x: mx, y: my }}
+          transition={{ type: "spring", stiffness: 25, damping: 10 }}
+          className="font-mono text-white/[0.02] text-xs md:text-sm whitespace-nowrap"
+        >
+          {text}
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+export default function ContactSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
+
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitted(true);
+    const mailto = `mailto:${personalInfo.email}?subject=Portfolio Contact from ${formState.name}&body=${formState.message}`;
+    window.open(mailto);
+  }
+
+  return (
+    <section ref={ref} id="contact" className="relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <FloatingContactLabel text="email.send(message)" x={-3} y={15} speed={30} mouseFactor={12} />
+        <FloatingContactLabel text="await response" x={85} y={28} speed={-20} mouseFactor={10} />
+        <FloatingContactLabel text="contact@dev" x={7} y={50} speed={35} mouseFactor={14} />
+        <FloatingContactLabel text="200 OK" x={90} y={60} speed={-25} mouseFactor={8} />
+        <FloatingContactLabel text="message.inbound()" x={4} y={75} speed={20} mouseFactor={16} />
+        <FloatingContactLabel text="newConnection()" x={80} y={85} speed={-30} mouseFactor={11} />
+      </div>
+
+      <div className="section-container">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="section-label">Get In Touch</span>
+            <h2 className="section-title">
+              Let&apos;s <span className="gradient-text">Connect</span>
+            </h2>
+            <p className="text-lg text-white/50 max-w-md mb-10 leading-relaxed">
+              Have a project in mind or just want to say hi? I&apos;d love to hear
+              from you.
+            </p>
+
+            <div className="space-y-4 mb-10">
+              {[
+                { icon: Mail, label: "Email", value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+                { icon: MapPin, label: "Location", value: personalInfo.location },
+                { icon: Phone, label: "GitHub", value: "@sangat7", href: personalInfo.social.github },
+              ].map(({ icon: Icon, label, value, href }) => (
+                <div key={label} className="flex items-center gap-4 group">
+                  <div className="p-2.5 rounded-lg bg-white/5 text-white/30 group-hover:text-primary group-hover:bg-primary/10 transition-all">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-white/30">{label}</div>
+                    {href ? (
+                      <a href={href} target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-primary transition-colors">
+                        {value}
+                      </a>
+                    ) : (
+                      <div className="text-sm text-white/60">{value}</div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <MagneticButton href={`mailto:${personalInfo.email}`}>
+              Send an Email
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </MagneticButton>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            style={{ y }}
+          >
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="glass-card rounded-2xl p-12 text-center"
+              >
+                <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
+                  <Check className="w-8 h-8 text-green-400" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
+                <p className="text-white/50">
+                  Thanks for reaching out. I&apos;ll get back to you soon.
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-8 space-y-6">
+                <h3 className="text-lg font-semibold mb-2">Send a Message</h3>
+
+                <div>
+                  <label className="block text-sm text-white/40 mb-2 font-mono">
+                    {"{ "}name{" }"}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formState.name}
+                    onChange={(e) => setFormState((s) => ({ ...s, name: e.target.value }))}
+                    placeholder="John Doe"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:bg-white/[0.07] transition-all font-mono text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-white/40 mb-2 font-mono">
+                    {"{ "}email{" }"}
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={formState.email}
+                    onChange={(e) => setFormState((s) => ({ ...s, email: e.target.value }))}
+                    placeholder="john@example.com"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:bg-white/[0.07] transition-all font-mono text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-white/40 mb-2 font-mono">
+                    {"{ "}message{" }"}
+                  </label>
+                  <textarea
+                    required
+                    value={formState.message}
+                    onChange={(e) => setFormState((s) => ({ ...s, message: e.target.value }))}
+                    rows={5}
+                    placeholder="Your message here..."
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:bg-white/[0.07] transition-all font-mono text-sm resize-none"
+                  />
+                </div>
+
+                <MagneticButton>
+                  Send Message
+                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </MagneticButton>
+              </form>
+            )}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
