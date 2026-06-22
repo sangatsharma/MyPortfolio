@@ -1,24 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/Homepage";
 
-import { useThemeContext } from "./context/ThemeContext.jsx";
-import { useEffect } from "react";
-import HomePage from "./pages/Homepage.js";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <HomePage />,
+    children: [{ path: "/", element: <HomePage /> }],
+  },
+]);
 
 function App() {
-  const { isDarkMode } = useThemeContext();
-
-  useEffect(() => {
-    document.body.className = isDarkMode ? "dark-mode" : "light-mode";
-  }, [isDarkMode]);
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      // element: <RootPageLayout />,
-      errorElement: <HomePage />,
-      children: [{ path: "/", element: <HomePage /> }],
-    },
-  ]);
   return <RouterProvider router={router} />;
 }
 
