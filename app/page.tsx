@@ -1,30 +1,27 @@
-"use client";
+import Hero from "@/sections/Hero";
+import Projects from "@/sections/Projects";
+import Experience from "@/sections/Experience";
+import About from "@/sections/About";
+import Stack from "@/sections/Stack";
+import GitHubActivity from "@/sections/GitHubActivity";
+import Notes from "@/sections/Notes";
+import Contact from "@/sections/Contact";
 
-import Navbar from "@/components/Navbar";
-import Intro from "@/components/Hero";
-import CursorFollower from "@/components/MouseCursorCircle";
-import PopupNavigation from "@/components/PopupNavigation";
-import ContactSection from "@/components/ContactSection";
-import AboutPage from "@/components/About";
-import Projects from "@/components/Projects";
-import Skills from "@/components/Skills";
-
+/**
+ * Section order is the recruiter's reading order: proof of work first
+ * (projects), then trajectory (experience), then the person, then depth.
+ */
 export default function HomePage() {
   return (
-    <div className="flex flex-col md:gap-0 text-center md:text-left">
-      <PopupNavigation />
-      <CursorFollower />
-      <Navbar />
-      <main className="mx-auto md:max-w-7xl h-auto px-4 text-center md:text-left lg:px-36 z-10 md:mt-14">
-        <Intro />
-        <AboutPage />
-        <Skills />
-        <Projects />
-      </main>
-      <div className="flex flex-col justify-center items-center mx-auto h-auto bg-transparent/5 rounded-md">
-        <ContactSection />
-        <footer className="text-center">Sangat Sharma</footer>
-      </div>
-    </div>
+    <>
+      <Hero />
+      <Projects />
+      <Experience />
+      <About />
+      <Stack />
+      <GitHubActivity />
+      <Notes />
+      <Contact />
+    </>
   );
 }

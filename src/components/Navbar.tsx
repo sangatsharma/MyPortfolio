@@ -1,146 +1,139 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Sling as Hamburger } from "hamburger-react";
-import { useThemeContext } from "../context/ThemeContext";
-import { DarkModeSwitch } from "react-toggle-dark-mode";
-import { Link } from "react-scroll";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { navLinks, site } from "@/data/site";
+import { cn } from "@/lib/utils";
 
-const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { isDarkMode, toggleTheme } = useThemeContext();
-  const navLinks = [
-    { label: "Home", href: "home" },
-    { label: "About", href: "about" },
-    { label: "Projects", href: "projects" },
-    { label: "Skills", href: "skills" },
-    { label: "Contact", href: "contact" },
-  ];
+/**
+ * Fixed navbar: transparent over the hero, glass once scrolling starts.
+ * On case-study pages the anchors point back to the home sections.
+ */
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const home = pathname === "/";
 
-  const navVariants = {
-    hidden: { y: -50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        delayChildren: 0.3,
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const linkVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.5 },
-    },
+  const openPalette = () => {
+    window.dispatchEvent(new CustomEvent("open-command-palette"));
   };
 
   return (
-    <motion.nav
-      className="bg-transparent backdrop-blur-md sticky top-0 z-30 w-full"
-      initial="hidden"
-      animate="visible"
-      variants={navVariants}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <motion.div className="flex items-center" variants={linkVariants}>
-            <img
-              className="h-24 p-2 md:h-28 w-30"
-              src="/images/navbarLogo.png"
-              alt="Logo"
-            />
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <motion.div
-            className="hidden md:flex space-x-4"
-            variants={linkVariants}
-          >
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                smooth={true}
-                duration={500}
-                offset={300}
-                className={`text-white px-3 py-2 rounded-md text-md font-medium bg-opacity-90 cursor-pointer ${
-                  isDarkMode ? "hover:bg-gray-500/70" : "hover:bg-blue-200/30"
-                }  transition-all duration-300`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <button className="hover:scale-125 transition-all ease-in">
-              <DarkModeSwitch
-                style={{ marginBottom: "0.5rem", marginTop: "0.4rem" }}
-                checked={!isDarkMode}
-                onChange={toggleTheme}
-                size={24}
-                moonColor="white"
-                sunColor="yellow"
-              />
-            </button>
-          </motion.div>
-
-          {/* Mobile Hamburger */}
-          <div className="flex md:hidden">
-            <DarkModeSwitch
-              style={{ marginTop: "0.7rem", marginRight: "0.5rem" }}
-              checked={!isDarkMode}
-              onChange={toggleTheme}
-              size={26}
-              moonColor="white"
-              sunColor="yellow"
-            />
-            <Hamburger
-              toggled={isOpen}
-              toggle={setIsOpen}
-              size={24}
-              color="white"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <motion.div
-          className="md:hidden bg-transparent backdrop-blur-3xl text-center w-full h-screen "
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          {navLinks.map((link) => (
-            <motion.div
-              key={link.label}
-              className="block text-white px-4 py-3 hover:text-black hover:bg-gray-50 transition-all duration-300"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Link
-                to={link.href}
-                smooth={true}
-                duration={500}
-         
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-40 transition-all duration-300",
+        scrolled || open
+          ? "border-b border-line bg-base/80 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent",
       )}
-    </motion.nav>
-  );
-};
+    >
+      <nav
+        aria-label="Main"
+        className="mx-auto flex h-16 max-w-content items-center justify-between px-6 lg:px-8"
+      >
+        <Link
+          href="/"
+          className="group flex items-center gap-2.5 font-mono text-sm font-semibold tracking-tight text-ink transition-colors hover:text-accent-strong"
+        >
+          <Image
+            src="/images/logo-mark.png"
+            alt=""
+            width={71}
+            height={117}
+            className="h-7 w-auto opacity-90 transition-opacity group-hover:opacity-100"
+          />
+          sangat<span className="text-accent-strong">.</span>sharma
+        </Link>
 
-export default Navbar;
+        <div className="hidden items-center gap-1 md:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={home ? link.href : `/${link.href}`}
+              className="rounded-full px-3.5 py-1.5 text-[15px] text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
+            >
+              {link.label}
+            </a>
+          ))}
+          <button
+            onClick={openPalette}
+            aria-label="Open command palette"
+            className="ml-2 flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-mono text-xs text-ink-faint transition-colors hover:border-line-strong hover:text-ink-muted"
+          >
+            <span className="text-[11px]">⌘K</span>
+          </button>
+          <a
+            href={site.resume}
+            download
+            className="ml-1 rounded-full bg-ink px-4 py-1.5 text-sm font-medium text-base transition-opacity hover:opacity-85"
+          >
+            Resume
+          </a>
+        </div>
+
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
+        >
+          <span
+            className={cn(
+              "h-px w-5 bg-ink transition-transform",
+              open && "translate-y-[3.5px] rotate-45",
+            )}
+          />
+          <span
+            className={cn(
+              "h-px w-5 bg-ink transition-transform",
+              open && "-translate-y-[3.5px] -rotate-45",
+            )}
+          />
+        </button>
+      </nav>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="overflow-hidden border-t border-line md:hidden"
+          >
+            <div className="flex flex-col gap-1 px-6 py-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={home ? link.href : `/${link.href}`}
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg px-3 py-2.5 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href={site.resume}
+                download
+                className="mt-2 rounded-lg bg-ink px-3 py-2.5 text-center text-sm font-medium text-base"
+              >
+                Download Resume
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}

@@ -3,99 +3,88 @@
 @tailwind utilities;
 
 :root {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: black;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
 }
 
 body {
-  transition: background-color 0.3s, color 0.3s;
-  font-family: "Poppins", sans-serif;
-  scroll-behavior: smooth;
-  color: white;
+  @apply bg-base text-ink antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-body.light-mode {
-  background: linear-gradient(60deg, #568eef 0%, #a793ce 100%);
+::selection {
+  background: rgba(91, 91, 214, 0.35);
+  color: #fff;
 }
 
-body.dark-mode {
-  background: radial-gradient(
-    ellipse at center bottom,
-    #1f2c39 0%,
-    #000000 60%
-  );
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.BubbleText {
-  transition: 0.35s font-weight, 0.35s;
-}
-
-.BubbleText:hover {
-  font-weight: 900;
-  color: rgb(238, 242, 255);
-}
-
-.BubbleText:hover + .BubbleText {
-  font-weight: 900;
-  color: rgb(199, 210, 254);
-}
-
-.BubbleText:hover + .BubbleText + .BubbleText {
-  font-weight: 300;
-}
-
-.BubbleText:has(+ .BubbleText:hover) {
-  font-weight: 500;
-  color: rgb(199, 210, 254);
-}
-
-.BubbleText:has(+ .BubbleText + .BubbleText:hover) {
-  font-weight: 300;
-}
-
+/* Thin, unobtrusive scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 8px;
+  width: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #414141;
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #a8a8a8;
-  border-radius: 6px;
-  border: 1px solid #060606;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #485d6b;
+/* Keyboard focus should always be visible, mouse focus quiet */
+:focus-visible {
+  outline: 2px solid #a5a6f6;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-.cursor-indicator {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  background: rgba(255, 255, 255, 0.4);
-  border: 0px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate3d(200, 200, 180);
-  transition: transform 0.1s ease-out;
-  z-index: 9999;
-}
-
-@keyframes dash {
-  from {
-    stroke-dashoffset: 200;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  to {
-    stroke-dashoffset: -200;
+}
+
+@layer utilities {
+  /* Faint blueprint grid used behind the hero */
+  .bg-grid {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* One vertical rhythm for every section */
+  .section-pad {
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  /* Global film-grain overlay — kills the "flat CSS" look. SVG turbulence
+     as a data URI: no network request, tiles at 160px. */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
+  .text-balance {
+    text-wrap: balance;
   }
 }
