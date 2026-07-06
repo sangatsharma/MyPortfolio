@@ -15,15 +15,41 @@ import { cn } from "@/lib/utils";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Scrollspy target and the link currently under the pointer; the pill
+  // sits on hovered when present, else on the section being read
+  const [active, setActive] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
   const pathname = usePathname();
   const home = pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      // Above the first section nothing is "current"
+      if (window.scrollY < 200) setActive(null);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Watch the home sections and mark the one crossing the reading line
+  useEffect(() => {
+    if (!home) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        }
+      },
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    for (const link of navLinks) {
+      const el = document.getElementById(link.href.slice(1));
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, [home]);
 
   const openPalette = () => {
     window.dispatchEvent(new CustomEvent("open-command-palette"));
@@ -56,29 +82,70 @@ export default function Navbar() {
           sangat<span className="text-accent-strong">.</span>sharma
         </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={home ? link.href : `/${link.href}`}
-              className="rounded-full px-3.5 py-1.5 text-[15px] text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div
+          className="hidden items-center gap-1 md:flex"
+          onMouseLeave={() => setHovered(null)}
+        >
+          {navLinks.map((link) => {
+            // Off the home page there's no section to be "in"
+            const current = home ? active : null;
+            const pillHere = (hovered ?? current) === link.href;
+            return (
+              <a
+                key={link.href}
+                href={home ? link.href : `/${link.href}`}
+                onMouseEnter={() => setHovered(link.href)}
+                onFocus={() => setHovered(link.href)}
+                onBlur={() => setHovered(null)}
+                className="relative rounded-full px-3.5 py-1.5 text-[15px]"
+              >
+                {/* One shared pill glides between links via layoutId */}
+                {pillHere && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    className="absolute inset-0 rounded-full border border-line bg-white/[0.05]"
+                  />
+                )}
+                <span
+                  className={cn(
+                    "relative transition-colors duration-200",
+                    pillHere ? "text-ink" : "text-ink-muted",
+                  )}
+                >
+                  {link.label}
+                </span>
+                {/* The section being read keeps its dot even while the
+                    pill follows the pointer */}
+                {current === link.href && (
+                  <motion.span
+                    layoutId="nav-dot"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    aria-hidden
+                    className="absolute inset-x-0 -bottom-0.5 mx-auto h-[3px] w-[3px] rounded-full bg-accent-strong"
+                  />
+                )}
+              </a>
+            );
+          })}
           <button
             onClick={openPalette}
             aria-label="Open command palette"
-            className="ml-2 flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-mono text-xs text-ink-faint transition-colors hover:border-line-strong hover:text-ink-muted"
+            className="ml-2 flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-mono text-xs text-ink-faint transition-all duration-200 hover:border-accent/50 hover:text-accent-strong hover:shadow-[0_0_16px_rgba(91,91,214,0.25)]"
           >
             <span className="text-[11px]">⌘K</span>
           </button>
           <a
             href={site.resume}
             download
-            className="ml-1 rounded-full bg-ink px-4 py-1.5 text-sm font-medium text-base transition-opacity hover:opacity-85"
+            className="group relative ml-1 overflow-hidden rounded-full bg-ink px-4 py-1.5 text-sm font-medium text-base transition-opacity hover:opacity-90"
           >
-            Resume
+            {/* Sheen sweep across the button on hover */}
+            <span
+              aria-hidden
+              className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-500 ease-out group-hover:translate-x-full motion-reduce:hidden"
+            />
+            <span className="relative">Resume</span>
           </a>
         </div>
 

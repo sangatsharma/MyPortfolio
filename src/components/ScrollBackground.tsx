@@ -2,6 +2,7 @@
 
 import {
   motion,
+  useMotionTemplate,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -10,6 +11,20 @@ import {
   useVelocity,
 } from "framer-motion";
 import { useEffect } from "react";
+
+/**
+ * Focus-orb waypoints: where the reader's attention should be at each
+ * point of the page, as (progress, x vw from center, y vh from top).
+ * Repeated positions create dwells — the orb rests on the content,
+ * then steps to the next stop. Tuned to the home page's section order:
+ * hero text → project deck → timeline → manifesto → principle cards →
+ * stack → github → closing CTA.
+ */
+const FOCUS = {
+  at: [0, 0.05, 0.1, 0.36, 0.44, 0.52, 0.58, 0.63, 0.68, 0.76, 0.84, 0.9, 1],
+  x: [-16, -16, 0, 0, -18, -18, -10, 10, 0, -4, 0, 0, 0],
+  y: [42, 42, 50, 50, 46, 46, 36, 48, 46, 44, 46, 46, 48],
+};
 
 /**
  * Global living background, fixed behind all content.
@@ -38,10 +53,17 @@ export default function ScrollBackground() {
   // Glow B: bottom-right, counters A for parallax depth
   const bX = useTransform(scrollYProgress, [0, 0.4, 0.8, 1], [0, -160, 40, -120]);
   const bY = useTransform(scrollYProgress, [0, 1], [0, -480]);
-  // Glow C: a brighter core that only reveals itself mid-page, giving the
-  // middle of the scroll its own moment instead of a uniform wash
-  const cOpacity = useTransform(scrollYProgress, [0, 0.35, 0.6, 0.85, 1], [0, 0.8, 1, 0.8, 0]);
-  const cX = useTransform(scrollYProgress, [0, 1], [-40, 60]);
+  // Focus orb: steps between content waypoints and settles on a spring,
+  // so the brightest light always sits where the reader should be looking
+  const focusX = useSpring(useTransform(scrollYProgress, FOCUS.at, FOCUS.x), {
+    stiffness: 50,
+    damping: 18,
+  });
+  const focusY = useSpring(useTransform(scrollYProgress, FOCUS.at, FOCUS.y), {
+    stiffness: 50,
+    damping: 18,
+  });
+  const focusTransform = useMotionTemplate`translate3d(calc(${focusX}vw - 50%), calc(${focusY}vh - 50%), 0)`;
 
   // Velocity breathing — spring-smoothed so it eases in and out
   const velocity = useVelocity(scrollY);
@@ -119,19 +141,24 @@ export default function ScrollBackground() {
           style={{ x: aX, y: aY, scale: glowScale }}
           className="absolute left-[8%] top-[-10%] h-[36rem] w-[36rem]"
         >
-          <div className="h-full w-full animate-aurora-a rounded-full bg-accent/[0.11] blur-3xl" />
+          <div className="h-full w-full animate-aurora-a rounded-full bg-accent/[0.12] blur-3xl" />
         </motion.div>
         <motion.div
           style={{ x: bX, y: bY, scale: glowScale }}
           className="absolute bottom-[-16%] right-[4%] h-[30rem] w-[30rem]"
         >
-          <div className="h-full w-full animate-aurora-b rounded-full bg-[#7b5bd6]/[0.08] blur-3xl" />
+          <div className="h-full w-full animate-aurora-b rounded-full bg-[#7b5bd6]/[0.09] blur-3xl" />
         </motion.div>
-        <motion.div
-          style={{ x: cX, opacity: cOpacity, scale: glowScale }}
-          className="absolute left-1/2 top-1/2 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2"
-        >
-          <div className="h-full w-full rounded-full bg-accent-strong/[0.07] blur-3xl" />
+        {/* Focus orb — three nested layers give it a bright readable core
+            with soft falloff, noticeably lighter than the ambient glows */}
+        <motion.div style={{ transform: focusTransform }} className="absolute left-1/2 top-0">
+          <motion.div style={{ scale: glowScale }} className="relative h-[34rem] w-[34rem]">
+            {/* Tinted toward the page base so the glow sits in the dark
+                instead of on top of it */}
+            <div className="absolute inset-0 rounded-full bg-[#2c2c6e]/[0.13] blur-3xl" />
+            <div className="absolute inset-[20%] rounded-full bg-accent/[0.12] blur-2xl" />
+            <div className="absolute inset-[38%] rounded-full bg-[#6f6fd8]/[0.06] blur-xl" />
+          </motion.div>
         </motion.div>
       </motion.div>
     </div>

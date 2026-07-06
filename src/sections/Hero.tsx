@@ -4,6 +4,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
+import CountUp from "@/components/ui/CountUp";
 import Magnetic from "@/components/ui/Magnetic";
 import Shape3D from "@/components/ui/Shape3D";
 import Telemetry from "@/components/Telemetry";
@@ -11,9 +12,9 @@ import { site } from "@/data/site";
 import { duration, easeOutExpo } from "@/lib/motion";
 
 const stats = [
-  { value: "2+", label: "years in production" },
-  { value: "3", label: "platforms shipped at scale" },
-  { value: "1000s", label: "of daily users served" },
+  { to: 2, suffix: "+", label: "years in production" },
+  { to: 3, suffix: "", label: "platforms shipped at scale" },
+  { to: 1000, suffix: "s", label: "of daily users served" },
 ];
 
 /** Headline words; the last two carry the accent. */
@@ -129,7 +130,7 @@ export default function Hero() {
               <div key={s.label}>
                 <dt className="sr-only">{s.label}</dt>
                 <dd className="text-3xl font-semibold tracking-tight text-ink tabular-nums md:text-4xl">
-                  {s.value}
+                  <CountUp to={s.to} suffix={s.suffix} />
                 </dd>
                 <dd className="mt-1 text-sm text-ink-faint">{s.label}</dd>
               </div>

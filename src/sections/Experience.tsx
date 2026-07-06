@@ -1,10 +1,15 @@
+"use client";
+
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { useRef } from "react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import { experience, education, certifications } from "@/data/experience";
 
 /**
  * Vertical timeline. The intern → mid-level arc in ~18 months is the
- * story here, so roles are rendered as one continuous progression.
+ * story here, so the timeline draws itself as the reader scrolls it —
+ * the growing line is the progression, scrubbed in both directions.
  */
 export default function Experience() {
   return (
@@ -23,7 +28,7 @@ export default function Experience() {
               <span className="text-sm text-ink-faint">{company.location}</span>
             </Reveal>
 
-            <ol className="relative ml-1 space-y-14 border-l border-line pl-8 md:pl-12">
+            <RoleTimeline>
               {company.roles.map((role, i) => (
                 <Reveal as="li" key={role.title} delay={i * 0.08} className="relative">
                   {/* Timeline node — accent for the current role */}
@@ -59,7 +64,7 @@ export default function Experience() {
                   </div>
                 </Reveal>
               ))}
-            </ol>
+            </RoleTimeline>
           </div>
         ))}
 
@@ -93,5 +98,32 @@ export default function Experience() {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+/**
+ * Role list with a progression line drawn by scroll: the tip tracks a
+ * point ~2/3 down the viewport, staying just below the entry being read.
+ * Static full line under reduced motion.
+ */
+function RoleTimeline({ children }: { children: React.ReactNode }) {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLOListElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.7", "end 0.7"],
+  });
+  const drawn = useSpring(scrollYProgress, { stiffness: 140, damping: 30 });
+
+  return (
+    <ol ref={ref} className="relative ml-1 space-y-14 pl-8 md:pl-12">
+      <span aria-hidden className="absolute left-0 top-0 h-full w-px bg-line" />
+      <motion.span
+        aria-hidden
+        style={reduce ? undefined : { scaleY: drawn }}
+        className="absolute left-0 top-0 h-full w-px origin-top bg-gradient-to-b from-accent-strong to-accent"
+      />
+      {children}
+    </ol>
   );
 }

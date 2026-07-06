@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Check, Copy, Download, Mail } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
 import Magnetic from "@/components/ui/Magnetic";
@@ -10,6 +11,19 @@ import { site } from "@/data/site";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+
+  // The close arrives cinematically: headline scales and sharpens into
+  // place as the section fills the viewport — scrubbed, so it plays in
+  // both directions rather than firing once
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.25"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.25, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [48, 0]);
 
   const copyEmail = async () => {
     try {
@@ -22,7 +36,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-pad relative scroll-mt-24 overflow-hidden border-t border-line">
+    <section ref={ref} id="contact" className="section-pad relative scroll-mt-24 overflow-hidden border-t border-line">
       {/* Second ambient light source — anchors the closing CTA */}
       <div
         aria-hidden
@@ -36,7 +50,7 @@ export default function Contact() {
         <Shape3D variant="ring" size={260} />
       </Parallax>
       <div className="relative mx-auto max-w-content px-6 text-center lg:px-8">
-        <Reveal>
+        <motion.div style={reduce ? undefined : { scale, opacity, y }}>
           <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-accent-strong">
             Contact · replies within a day
           </p>
@@ -47,7 +61,7 @@ export default function Contact() {
             {site.availability}. Whether it&apos;s a senior frontend role, a product that needs
             shipping, or an architecture that needs untangling — my inbox is open.
           </p>
-        </Reveal>
+        </motion.div>
 
         <Reveal delay={0.15} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Magnetic>
