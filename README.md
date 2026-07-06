@@ -1,50 +1,39 @@
-# React + TypeScript + Vite
+# sangatsharma.com.np
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of **Sangat Sharma** — software engineer specializing in React, Next.js and TypeScript. Designed and built from scratch: single-page experience with full case-study routes, a command palette, and a server-rendered GitHub contribution graph.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Next.js (App Router)** + React + TypeScript
+- **Tailwind CSS** — design tokens in `tailwind.config.js` (dark-only theme)
+- **Framer Motion** — scroll reveals, spotlight cards, magnetic CTAs
+- **Lenis** — smooth scrolling (disabled under `prefers-reduced-motion`)
 
-## Expanding the ESLint configuration
+## Architecture
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+app/                  Routes: home, /projects/[slug] case studies, sitemap, robots
+src/data/             All content — site info, experience, projects, skills, notes
+src/sections/         Page sections (Hero, Projects, Experience, About, Stack, …)
+src/components/       Chrome (Navbar, CommandPalette, Footer) + ui/ primitives
+src/lib/              Utilities and server-side GitHub fetchers
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Content is fully data-driven: editing `src/data/*` updates the site without touching components. Case-study pages are statically generated via `generateStaticParams`; the GitHub section is a server component revalidated twice daily with zero client JS.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Development
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+pnpm install
+pnpm dev      # local dev
+pnpm build    # production build (all routes static/SSG)
+pnpm lint
 ```
+
+## Features
+
+- ⌘K / Ctrl+K command palette — sections, case studies, links, quick actions
+- Per-project case studies: problem, solution, architecture, challenges, lessons
+- Project filtering by domain
+- Accessible: skip link, focus-visible styles, reduced-motion support, semantic landmarks
+- SEO: metadata, OpenGraph, JSON-LD Person schema, generated sitemap + robots
