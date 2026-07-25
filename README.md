@@ -27,7 +27,7 @@ Content is fully data-driven: editing `src/data/*` updates the site without touc
 pnpm install
 pnpm dev      # local dev
 pnpm build    # production build (all routes static/SSG)
-pnpm lint
+pnpm lint     # lint
 ```
 
 ## Features
