@@ -27,7 +27,7 @@ export default function About() {
         <Reveal className="grid gap-8 text-lg leading-relaxed text-ink-muted lg:grid-cols-2 lg:gap-16">
           <p>
             That environment shapes how I work. I design frontend architecture the way backend
-            engineers design systems — thinking about state ownership, data flow, failure modes
+            engineers design systems, thinking about state ownership, data flow, failure modes
             and what happens when requirements change six months from now. Micro-frontends,
             monorepos and multi-tenant systems aren&apos;t buzzwords to me; they&apos;re decisions
             I&apos;ve made, defended and lived with in production.
@@ -36,7 +36,7 @@ export default function About() {
             I also believe the best engineers multiply their teams. I mentor juniors and interns,
             run code reviews that teach rather than gatekeep, and sit directly with clients to
             turn ambiguous requirements into shippable scope. The award on my desk says
-            &ldquo;Rapid Riser&rdquo; — I got there by making the people around me faster too.
+            &ldquo;Rapid Riser&rdquo;, and I got there by making the people around me faster too.
           </p>
         </Reveal>
 

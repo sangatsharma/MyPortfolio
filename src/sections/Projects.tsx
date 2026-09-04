@@ -33,7 +33,7 @@ export default function Projects() {
         <SectionHeading
           eyebrow={`Featured work · ${featured.length} case studies`}
           title="Software built for real users, real scale."
-          description="Commercial platforms and personal builds — each one a full case study covering the problem, architecture, trade-offs and what I'd do differently."
+          description="Commercial platforms and personal builds. Each one is a full case study covering the problem, architecture, trade-offs and what I'd do differently."
         />
       </div>
 

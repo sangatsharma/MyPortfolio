@@ -59,7 +59,7 @@ export default function Contact() {
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-muted">
             {site.availability}. Whether it&apos;s a senior frontend role, a product that needs
-            shipping, or an architecture that needs untangling — my inbox is open.
+            shipping, or an architecture that needs untangling, my inbox is open.
           </p>
         </motion.div>
 
@@ -83,7 +83,8 @@ export default function Contact() {
           </button>
           <a
             href={site.resume}
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-full border border-line-strong px-5 py-3.5 text-sm text-ink transition-colors hover:border-accent/50 hover:text-accent-strong"
           >
             <Download size={15} />

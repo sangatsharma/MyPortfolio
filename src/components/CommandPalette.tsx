@@ -11,6 +11,7 @@ import {
   FolderGit2,
   Github,
   Home,
+  Layers,
   Linkedin,
   Mail,
   Terminal as TerminalIcon,
@@ -18,8 +19,10 @@ import {
 } from "lucide-react";
 import { site } from "@/data/site";
 import { projects } from "@/data/projects";
+import { notes } from "@/data/notes";
 import { cn } from "@/lib/utils";
 import { springFeedback } from "@/lib/motion";
+import { scrollToHash } from "@/lib/scroll";
 import Terminal, { type TerminalActions } from "@/components/Terminal";
 
 interface Command {
@@ -54,11 +57,13 @@ export default function CommandPalette() {
   const goTo = useCallback(
     (hash: string) => {
       close();
-      if (pathname === "/") {
-        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-      } else {
+      if (pathname !== "/") {
         router.push(`/${hash}`);
+        return;
       }
+      // Scroll on the next frame so React commits the close first, and go
+      // through Lenis so the two scroll engines never fight over the page.
+      requestAnimationFrame(() => scrollToHash(hash));
     },
     [close, pathname, router],
   );
@@ -69,7 +74,21 @@ export default function CommandPalette() {
       { id: "work", label: "Featured Work", section: "Navigate", icon: <FolderGit2 size={15} />, run: () => goTo("#work") },
       { id: "experience", label: "Experience", section: "Navigate", icon: <FileText size={15} />, run: () => goTo("#experience") },
       { id: "about", label: "About", section: "Navigate", icon: <User size={15} />, run: () => goTo("#about") },
+      { id: "stack", label: "Stack", section: "Navigate", icon: <Layers size={15} />, run: () => goTo("#stack") },
+      { id: "opensource", label: "Open source", hint: "contribution graph", section: "Navigate", icon: <Github size={15} />, run: () => goTo("#github") },
+      { id: "notes", label: "Notes", section: "Navigate", icon: <FileText size={15} />, run: () => goTo("#notes") },
       { id: "contact", label: "Contact", section: "Navigate", icon: <Mail size={15} />, run: () => goTo("#contact") },
+      ...notes.map((n) => ({
+        id: n.slug,
+        label: n.title,
+        hint: `${n.tag} · ${n.readingTime}`,
+        section: "Notes",
+        icon: <FileText size={15} />,
+        run: () => {
+          close();
+          router.push(`/notes/${n.slug}`);
+        },
+      })),
       ...projects.map((p) => ({
         id: p.slug,
         label: p.name,
@@ -210,7 +229,9 @@ export default function CommandPalette() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          // pointerEvents is applied the instant closing starts, so a
+          // lingering node can never swallow clicks meant for the page
+          exit={{ opacity: 0, pointerEvents: "none" }}
           transition={{ duration: 0.15 }}
           className="fixed inset-0 z-[60] flex items-start justify-center bg-black/60 px-4 pt-[18vh] backdrop-blur-sm"
           onClick={close}
@@ -239,7 +260,11 @@ export default function CommandPalette() {
               aria-label="Search commands"
               className="w-full border-b border-line bg-transparent px-5 py-4 text-sm text-ink placeholder:text-ink-faint focus:outline-none"
             />
-            <ul className="max-h-[50vh] overflow-y-auto p-2" role="listbox">
+            <ul
+              className="max-h-[50vh] overflow-y-auto p-2"
+              role="listbox"
+              data-lenis-prevent
+            >
               {filtered.length === 0 && (
                 <li className="px-3 py-8 text-center text-sm text-ink-faint">No results.</li>
               )}
@@ -263,11 +288,12 @@ export default function CommandPalette() {
                         i === active ? "text-ink" : "text-ink-muted",
                       )}
                     >
+                      {/* Plain highlight, not a shared-layout element: a
+                          layoutId here keeps the exit animation alive and
+                          the overlay never gets removed from the DOM */}
                       {i === active && (
-                        <motion.span
-                          layoutId="palette-active"
-                          transition={springFeedback}
-                          className="absolute inset-0 rounded-lg bg-white/[0.07]"
+                        <span
+                          className="absolute inset-0 rounded-lg bg-white/[0.07] transition-colors"
                           aria-hidden
                         />
                       )}

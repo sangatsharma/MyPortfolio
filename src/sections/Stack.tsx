@@ -16,14 +16,20 @@ const SPAN_CLASS: Record<number, string> = {
 };
 
 /**
- * Groups flow into bento rows of two, then three. Within a row each
- * card's width is proportional to how many skills it holds, so the
- * grid itself reads as a weighting: more surface = more tools there.
+ * Groups flow into bento rows of two, with a single row of three
+ * absorbing the odd card so no group is ever stranded alone on a row.
+ * Within a row each card's width is proportional to how many skills it
+ * holds, so the grid itself reads as a weighting: more surface means
+ * more tools live there.
  */
 function bentoRows(groups: SkillGroup[]): { group: SkillGroup; span: number }[] {
   const rows: SkillGroup[][] = [];
-  for (let i = 0, take = 2; i < groups.length; i += take, take = take === 2 ? 3 : 2) {
+  let odd = groups.length % 2 === 1;
+  for (let i = 0; i < groups.length; ) {
+    const take = odd && rows.length === 1 ? 3 : 2;
+    if (take === 3) odd = false;
     rows.push(groups.slice(i, i + take));
+    i += take;
   }
   return rows.flatMap((row) => {
     const total = row.reduce((sum, g) => sum + g.items.length, 0);
@@ -47,7 +53,7 @@ export default function Stack() {
         <SectionHeading
           eyebrow="Stack · everything here has shipped"
           title="Tools chosen per problem, not by habit."
-          description="Every item here has shipped to production. Grouped by the role it plays — the wider the card, the more of the day it covers."
+          description="Every item here has shipped to production, grouped by the role it plays. The wider the card, the more of the day it covers."
         />
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-12">

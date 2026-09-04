@@ -106,7 +106,7 @@ export default function ScrollBackground() {
 
   if (reduce) {
     return (
-      <div aria-hidden className="fixed inset-0 -z-10">
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
         {wash}
         <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_80%_55%_at_50%_25%,black,transparent)]" />
         <div className="absolute left-[12%] top-[-8%] h-[34rem] w-[34rem] rounded-full bg-accent/[0.08] blur-3xl" />
@@ -115,7 +115,7 @@ export default function ScrollBackground() {
   }
 
   return (
-    <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       {wash}
 
       {/* Slow-rotating conic mesh — a living gradient sweep behind everything */}

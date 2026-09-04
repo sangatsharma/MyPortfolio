@@ -23,12 +23,12 @@ export const experience: Company[] = [
     roles: [
       {
         title: "Frontend Developer · Mid-Level",
-        period: "Apr 2026 — Present",
+        period: "Apr 2026 to Present",
         summary:
           "Leading frontend delivery across multiple production modules while mentoring the team that ships them.",
         highlights: [
           "Own day-to-day technical execution for products used by thousands of users across complex operational workflows.",
-          "Mentor juniors and interns through structured task breakdowns, code reviews and pairing — raising delivery consistency across the team.",
+          "Mentor juniors and interns through structured task breakdowns, code reviews and pairing, raising delivery consistency across the team.",
           "Manage branching strategy, release readiness and repository health for predictable production cycles.",
           "Named Best Performer of the Year (Rapid Riser) within two years of joining.",
         ],
@@ -36,9 +36,9 @@ export const experience: Company[] = [
       },
       {
         title: "Frontend Developer · Junior",
-        period: "Mar 2025 — Mar 2026",
+        period: "Mar 2025 to Mar 2026",
         summary:
-          "Led frontend development of a consultancy CRM — from solution design to continuous delivery across releases.",
+          "Led frontend development of a consultancy CRM, from solution design through continuous delivery across releases.",
         highlights: [
           "Architected a micro-frontend, monorepo-based system of interconnected apps covering visa processing, CRM and workforce operations across separately deployed portals.",
           "Sat with clients weekly for requirements and SRS discussions, turning business needs into iterative delivery.",
@@ -50,7 +50,7 @@ export const experience: Company[] = [
       },
       {
         title: "Frontend Developer · Intern",
-        period: "Nov 2024 — Mar 2025",
+        period: "Nov 2024 to Mar 2025",
         summary:
           "Contributed to a construction-sector ERP with multi-portal, role-based workflows.",
         highlights: [
@@ -68,7 +68,7 @@ export const experience: Company[] = [
 export const education = {
   degree: "B.E. Software Engineering",
   school: "Pokhara University",
-  period: "2021 — 2025",
+  period: "2021 to 2025",
   detail: "CGPA 3.71 / 4 · Dean's List Award",
 };
 

@@ -1,6 +1,6 @@
 export interface SkillGroup {
   label: string;
-  /** One line on why this group matters — shown under the label. */
+  /** One line on why this group matters, shown under the label. */
   note: string;
   items: string[];
 }
@@ -9,12 +9,28 @@ export const skillGroups: SkillGroup[] = [
   {
     label: "Core",
     note: "The tools I ship production software with daily.",
-    items: ["TypeScript", "React", "Next.js", "JavaScript (ES6+)", "Tailwind CSS", "Framer Motion"],
+    items: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "JavaScript (ES6+)",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Electron.js",
+    ],
   },
   {
     label: "Backend & Data",
     note: "Enough backend to own features end to end.",
-    items: ["Node.js", "Express", "PostgreSQL", "Redis", "REST APIs", "WebSockets"],
+    items: [
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "REST APIs",
+      "WebSockets",
+    ],
   },
   {
     label: "State & Data Fetching",
@@ -27,16 +43,21 @@ export const skillGroups: SkillGroup[] = [
     items: ["Micro-frontends", "Monorepos", "Multi-tenant systems", "Component-driven design", "Design systems"],
   },
   {
+    label: "Delivery & Infrastructure",
+    note: "Getting code from a branch to production, repeatably.",
+    items: ["Docker", "GitHub Actions", "CI/CD pipelines", "Git & release management"],
+  },
+  {
     label: "Practices",
     note: "How the work actually gets shipped.",
-    items: ["Code review", "Agile delivery", "Mentorship", "Performance profiling", "Accessibility", "Git & release management"],
+    items: ["Code review", "Agile delivery", "Mentorship", "Performance profiling", "Accessibility"],
   },
 ];
 
 export const principles = [
   {
     title: "Performance is a feature",
-    detail: "Bundle discipline, caching strategy and hot-path thinking from the first commit — not as a launch-week panic.",
+    detail: "Bundle discipline, caching strategy and hot-path thinking from the first commit, not as a launch-week panic.",
   },
   {
     title: "Architecture people can inherit",
@@ -48,6 +69,6 @@ export const principles = [
   },
   {
     title: "Own the outcome",
-    detail: "From client conversations to production releases — I take responsibility for shipping, not just for code.",
+    detail: "From client conversations to production releases, I take responsibility for shipping, not just for code.",
   },
 ];

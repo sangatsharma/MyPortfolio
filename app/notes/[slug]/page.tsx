@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: note.title,
     description: note.summary,
     openGraph: {
-      title: `${note.title} — ${site.name}`,
+      title: `${note.title} · ${site.name}`,
       description: note.summary,
       type: "article",
       publishedTime: note.date,

@@ -31,13 +31,13 @@ export const projects: Project[] = [
     tagline: "Micro-frontend platform running visa pipelines for an international consultancy",
     kind: "Commercial",
     featured: true,
-    year: "2025 — 2026",
+    year: "2025 to 2026",
     tech: ["React", "TypeScript", "Monorepo", "Micro-frontends", "WebSockets", "REST APIs"],
     domains: ["SaaS", "Real-time", "Architecture"],
     overview:
-      "A monorepo-based platform of interconnected portals — CRM, visa processing and workforce operations — each deployed independently but sharing design system, auth and data contracts. I led frontend development end to end: solution design, implementation and continuous delivery across releases.",
+      "A monorepo-based platform of interconnected portals (CRM, visa processing and workforce operations), each deployed independently but sharing design system, auth and data contracts. I led frontend development end to end: solution design, implementation and continuous delivery across releases.",
     problem:
-      "The consultancy ran visa pipelines across spreadsheets, email threads and disconnected tools. Every application touched multiple roles and external partners, with compliance requirements that demanded a full audit trail — and no system provided one.",
+      "The consultancy ran visa pipelines across spreadsheets, email threads and disconnected tools. Every application touched multiple roles and external partners, with compliance requirements that demanded a full audit trail that no system provided.",
     solution:
       "A micro-frontend system where each business domain (CRM, visa operations, workforce) lives in its own independently deployable app, unified by a shared component library and typed API layer. Every pipeline action is tracked, auditable and visible in real time to every role that needs it.",
     architecture: [
@@ -57,7 +57,7 @@ export const projects: Project[] = [
       {
         title: "Keeping independently deployed apps coherent",
         detail:
-          "Separate portals meant separate release cycles. Shared packages for UI, auth and API types — versioned inside the monorepo — kept every portal on the same contract without blocking each other's deploys.",
+          "Separate portals meant separate release cycles. Shared packages for UI, auth and API types, versioned inside the monorepo, kept every portal on the same contract without blocking each other's deploys.",
       },
       {
         title: "Compliance without friction",
@@ -67,7 +67,7 @@ export const projects: Project[] = [
       {
         title: "Requirements that evolved weekly",
         detail:
-          "I sat in weekly client SRS discussions and translated them into iterative delivery — scoping what ships this release versus what needs design, keeping trust on both sides.",
+          "I sat in weekly client SRS discussions and translated them into iterative delivery: scoping what ships this release versus what needs design, keeping trust on both sides.",
       },
     ],
     performance: [
@@ -75,7 +75,7 @@ export const projects: Project[] = [
       "Domain-level code splitting keeps each portal's bundle scoped to its own workflows.",
     ],
     lessons: [
-      "Micro-frontends pay off only with disciplined shared contracts — the architecture is a social agreement as much as a technical one.",
+      "Micro-frontends pay off only with disciplined shared contracts, because the architecture is a social agreement as much as a technical one.",
       "Sitting in requirement discussions directly makes you a better engineer: half of good architecture is knowing which requirements are actually stable.",
     ],
   },
@@ -85,18 +85,18 @@ export const projects: Project[] = [
     tagline: "Multi-tenant restaurant management platform",
     kind: "Commercial",
     featured: true,
-    year: "2024 — 2025",
+    year: "2024 to 2025",
     tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Zustand", "React Query", "WebSockets"],
     domains: ["SaaS", "Real-time"],
     overview:
-      "A multi-tenant restaurant management platform spanning three applications — Product Owner, Client Admin and customer-facing — inside a monorepo with a shared design system. I built frontend modules across all three, gradually taking ownership through sprint planning, code reviews and production releases.",
+      "A multi-tenant restaurant management platform spanning three applications (Product Owner, Client Admin and customer-facing) inside a monorepo with a shared design system. I built frontend modules across all three, gradually taking ownership through sprint planning, code reviews and production releases.",
     problem:
-      "Restaurants juggle orders, tables, menus and payments across tools that don't talk to each other. RestroX needed one platform serving three very different audiences — platform operators, restaurant admins and diners — without building three separate products.",
+      "Restaurants juggle orders, tables, menus and payments across tools that don't talk to each other. RestroX needed one platform serving three very different audiences, namely platform operators, restaurant admins and diners, without building three separate products.",
     solution:
       "A monorepo of three apps on a shared design system, so a diner's order, an admin's dashboard and the platform owner's controls all speak the same visual and data language. Real-time WebSocket features keep orders and operational notifications live across roles.",
     architecture: [
       "Monorepo with three deployable apps sharing one design system for cross-module UX consistency.",
-      "Zustand for local UI state, React Query for server state — a deliberate split that kept caching predictable.",
+      "Zustand for local UI state, React Query for server state, a deliberate split that kept caching predictable.",
       "Payment gateway integration wired into order workflows with real-time status updates.",
     ],
     features: [
@@ -119,11 +119,11 @@ export const projects: Project[] = [
     ],
     performance: [
       "React Query caching tuned per-resource to cut redundant fetches in high-frequency order views.",
-      "Route-level code splitting keeps the customer app lean — it never pays for admin code.",
+      "Route-level code splitting keeps the customer app lean, so it never pays for admin code.",
     ],
     lessons: [
       "In multi-tenant systems, the data model is the product. UI mistakes are cheap to fix; tenancy mistakes are not.",
-      "Owning modules end-to-end — planning to production — taught me more than any amount of ticket work.",
+      "Owning modules end to end, from planning to production, taught me more than any amount of ticket work.",
     ],
   },
   {
@@ -136,9 +136,9 @@ export const projects: Project[] = [
     tech: ["React", "TypeScript", "REST APIs"],
     domains: ["SaaS"],
     overview:
-      "The admin platform powering Simple Patro, a widely used Nepali calendar — centralized management of holidays, events, horoscopes and auspicious-time data published daily to a large audience.",
+      "The admin platform powering Simple Patro, a widely used Nepali calendar. It centralizes management of holidays, events, horoscopes and auspicious-time data published daily to a large audience.",
     problem:
-      "Culturally sensitive, time-critical content — panchang data, holidays, horoscopes — was being managed through fragile manual processes where a single wrong date ships to thousands of users.",
+      "Culturally sensitive, time-critical content such as panchang data, holidays and horoscopes was being managed through fragile manual processes where a single wrong date ships to thousands of users.",
     solution:
       "Structured admin workflows for daily publishing: validated forms, reusable components and state management designed around the operators' actual daily routine, making the correct action the fast one.",
     architecture: [
@@ -154,7 +154,7 @@ export const projects: Project[] = [
       {
         title: "Accuracy as the core feature",
         detail:
-          "Calendar data has zero tolerance for error — it's checked against tradition, not just schemas. The UI surfaces context (adjacent days, previous years) so operators verify while they edit.",
+          "Calendar data has zero tolerance for error, because it's checked against tradition, not just schemas. The UI surfaces context (adjacent days, previous years) so operators verify while they edit.",
       },
     ],
     performance: [
@@ -166,7 +166,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ciy",
-    name: "CIY — Cook It Yourself",
+    name: "CIY, Cook It Yourself",
     tagline: "Full-stack recipe platform with personalized discovery",
     kind: "Personal",
     featured: true,
@@ -177,11 +177,11 @@ export const projects: Project[] = [
     tech: ["React", "Node.js", "Express", "PostgreSQL", "REST APIs", "Tailwind CSS"],
     domains: ["Full-stack", "AI"],
     overview:
-      "A full-stack recipe platform where people discover, share and save recipes — with recommendations that adapt to taste. Built end to end: PostgreSQL schema, Express REST API and a React frontend.",
+      "A full-stack recipe platform where people discover, share and save recipes, with recommendations that adapt to taste. Built end to end: PostgreSQL schema, Express REST API and a React frontend.",
     problem:
       "Recipe sites optimize for SEO walls of text, not for the person deciding what to cook tonight. I wanted discovery that starts from your ingredients and preferences instead of a search box.",
     solution:
-      "A community-driven platform with ingredient-aware recommendations, clean recipe authoring and a reading experience designed for the kitchen — large type, clear steps, no clutter.",
+      "A community-driven platform with ingredient-aware recommendations, clean recipe authoring and a reading experience designed for the kitchen: large type, clear steps, no clutter.",
     architecture: [
       "Express REST API over PostgreSQL with a normalized recipe/ingredient schema that makes ingredient-based querying cheap.",
       "JWT-based auth with route-level guards on the API.",
@@ -205,7 +205,7 @@ export const projects: Project[] = [
       "Responsive image sizing and lazy loading keep the feed light on mobile connections.",
     ],
     lessons: [
-      "Owning the schema changes how you build UI — half of frontend complexity is usually a data-model problem in disguise.",
+      "Owning the schema changes how you build UI, because half of frontend complexity is usually a data-model problem in disguise.",
     ],
   },
   {
@@ -221,11 +221,11 @@ export const projects: Project[] = [
     tech: ["Node.js", "Express", "Redis", "React"],
     domains: ["Full-stack"],
     overview:
-      "A production URL shortener with click analytics. The interesting part isn't shortening a URL — it's doing the redirect fast enough that nobody notices the hop.",
+      "A production URL shortener with click analytics. The interesting part isn't shortening a URL. It's doing the redirect fast enough that nobody notices the hop.",
     problem:
       "A redirect service lives or dies on latency: every millisecond sits directly in a user's navigation path, and cold database lookups on the hot path are unacceptable.",
     solution:
-      "Redis-backed lookup on the redirect path with the database as source of truth — reads hit cache, writes and analytics happen off the critical path.",
+      "Redis-backed lookup on the redirect path with the database as source of truth: reads hit cache, while writes and analytics happen off the critical path.",
     architecture: [
       "Redis cache-aside on the redirect hot path; persistent store behind it.",
       "Async analytics recording so click tracking never delays the redirect.",
@@ -246,7 +246,7 @@ export const projects: Project[] = [
       "Cache-hit redirects respond in single-digit milliseconds server-side.",
     ],
     lessons: [
-      "Small systems are the best place to practice hot-path thinking — the constraints are real but the blast radius is yours.",
+      "Small systems are the best place to practice hot-path thinking, because the constraints are real but the blast radius is yours.",
     ],
   },
   {
@@ -266,10 +266,10 @@ export const projects: Project[] = [
     problem:
       "The game is trivial; the engineering isn't. Two players on flaky connections must see one consistent board, and the AI must be provably unbeatable without freezing the UI.",
     solution:
-      "Server-authoritative game state over WebSockets — clients render, the server decides — plus a pruned Minimax engine that evaluates instantly. Installable as a PWA with a full offline mode against the AI.",
+      "Server-authoritative game state over WebSockets, where clients render and the server decides, plus a pruned Minimax engine that evaluates instantly. Installable as a PWA with a full offline mode against the AI.",
     architecture: [
       "WebSocket rooms with server-authoritative state to prevent desync and cheating.",
-      "Minimax with alpha-beta pruning — optimal play with a fraction of the search space.",
+      "Minimax with alpha-beta pruning: optimal play with a fraction of the search space.",
       "Service worker for offline play and installability.",
     ],
     features: [

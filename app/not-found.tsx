@@ -10,7 +10,7 @@ export default function NotFound() {
           This page shipped to the wrong environment.
         </h1>
         <p className="mx-auto mt-4 max-w-md text-ink-muted">
-          The route you&apos;re looking for doesn&apos;t exist — or never made it past code review.
+          The route you&apos;re looking for doesn&apos;t exist, or never made it past code review.
         </p>
         <Link
           href="/"

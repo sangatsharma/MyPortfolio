@@ -56,7 +56,7 @@ export default async function GitHubActivity() {
         <SectionHeading
           eyebrow={`Open source · @${site.githubUser}`}
           title="Code in public, consistently."
-          description="The rhythm behind the case studies — daily commits, personal builds and experiments, all visible."
+          description="The rhythm behind the case studies: daily commits, personal builds and experiments, all visible."
         />
 
         <Reveal>
@@ -121,7 +121,7 @@ export default async function GitHubActivity() {
                           />
                         </p>
                         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-muted">
-                          {repo.description ?? "No description — the code speaks for itself."}
+                          {repo.description ?? "No description yet. The code speaks for itself."}
                         </p>
                         <p className="mt-auto flex items-center gap-4 pt-4 text-xs text-ink-faint">
                           {repo.language && (

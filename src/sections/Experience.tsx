@@ -16,9 +16,9 @@ export default function Experience() {
     <section id="experience" className="section-pad scroll-mt-24 border-t border-line">
       <div className="mx-auto max-w-content px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Experience · Nov 2024 — present"
+          eyebrow="Experience · Nov 2024 to present"
           title="Intern to technical lead in eighteen months."
-          description="Every promotion earned on shipped software — production platforms, client-facing delivery and a team that got faster because I was on it."
+          description="Every promotion earned on shipped software: production platforms, client-facing delivery and a team that got faster because I was on it."
         />
 
         {experience.map((company) => (
@@ -89,7 +89,7 @@ export default function Experience() {
                   <span className="font-medium text-ink">{c.name}</span>
                   <span className="text-ink-faint">
                     {" "}
-                    — {c.org}, {c.year}
+                    · {c.org}, {c.year}
                   </span>
                 </li>
               ))}

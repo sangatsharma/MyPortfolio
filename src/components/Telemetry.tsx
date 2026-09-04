@@ -86,7 +86,7 @@ export default function Telemetry({ className = "" }: { className?: string }) {
         />
         <Segment
           {...segment({ detail: "uptime since first deploy, nov 2024", href: "#experience" })}
-          label={<span className="tabular-nums">{uptimeDays ?? "—"} days in production</span>}
+          label={<span className="tabular-nums">{uptimeDays ?? "···"} days in production</span>}
           icon={<Activity size={11} aria-hidden className="text-accent-strong" />}
         />
       </div>

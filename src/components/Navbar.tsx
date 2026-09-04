@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, site } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { scrollToTop } from "@/lib/scroll";
 
 /**
  * Fixed navbar: transparent over the hero, glass once scrolling starts.
@@ -70,6 +71,15 @@ export default function Navbar() {
       >
         <Link
           href="/"
+          onClick={(e) => {
+            // Already home: scroll back to the hero instead of a no-op route
+            if (home) {
+              e.preventDefault();
+              setOpen(false);
+              scrollToTop();
+            }
+          }}
+          aria-label="Sangat Sharma, back to top"
           className="group flex items-center gap-2.5 font-mono text-sm font-semibold tracking-tight text-ink transition-colors hover:text-accent-strong"
         >
           <Image
@@ -137,7 +147,8 @@ export default function Navbar() {
           </button>
           <a
             href={site.resume}
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative ml-1 overflow-hidden rounded-full bg-ink px-4 py-1.5 text-sm font-medium text-base transition-opacity hover:opacity-90"
           >
             {/* Sheen sweep across the button on hover */}
@@ -192,10 +203,11 @@ export default function Navbar() {
               ))}
               <a
                 href={site.resume}
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-2 rounded-lg bg-ink px-3 py-2.5 text-center text-sm font-medium text-base"
               >
-                Download Resume
+                Open resume
               </a>
             </div>
           </motion.div>

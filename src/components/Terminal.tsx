@@ -37,7 +37,7 @@ const HELP: string[] = [
 ];
 
 const GREETING: Line[] = [
-  { kind: "out", text: `${site.name.toLowerCase().replace(" ", ".")} terminal — type 'help' to get started.` },
+  { kind: "out", text: `${site.name.toLowerCase().replace(" ", ".")} terminal. type 'help' to get started.` },
 ];
 
 /**
@@ -85,7 +85,7 @@ export default function Terminal({ actions }: { actions: TerminalActions }) {
         if (arg.startsWith("project")) {
           print(
             "out",
-            ...projects.map((p) => `  ${p.slug.padEnd(18)} ${p.name} — ${p.year}`),
+            ...projects.map((p) => `  ${p.slug.padEnd(18)} ${p.name} · ${p.year}`),
           );
         } else {
           print("out", SECTIONS.join("  "));
@@ -94,7 +94,7 @@ export default function Terminal({ actions }: { actions: TerminalActions }) {
       case "cd":
       case "goto": {
         if (!arg) {
-          print("err", "usage: cd <section> — try 'ls'");
+          print("err", "usage: cd <section>, try 'ls'");
           return;
         }
         if (arg === "home" || arg === "~" || arg === "/") {
@@ -106,12 +106,12 @@ export default function Terminal({ actions }: { actions: TerminalActions }) {
           actions.goToHash(`#${section}`);
           return;
         }
-        print("err", `cd: no such section: ${arg} — try 'ls'`);
+        print("err", `cd: no such section: ${arg}, try 'ls'`);
         return;
       }
       case "open": {
         if (!arg) {
-          print("err", "usage: open <project> — try 'ls projects'");
+          print("err", "usage: open <project>, try 'ls projects'");
           return;
         }
         if (arg === "github") return actions.openUrl(site.github);
@@ -122,7 +122,7 @@ export default function Terminal({ actions }: { actions: TerminalActions }) {
           actions.goRoute(`/projects/${project.slug}`);
           return;
         }
-        print("err", `open: not found: ${arg} — try 'ls projects'`);
+        print("err", `open: not found: ${arg}, try 'ls projects'`);
         return;
       }
       case "search":
@@ -156,7 +156,7 @@ export default function Terminal({ actions }: { actions: TerminalActions }) {
       case "whoami":
         print(
           "out",
-          "sangat — software engineer, pokhara (utc+5:45).",
+          "sangat, software engineer, pokhara (utc+5:45).",
           "2+ years shipping multi-tenant saas, crms and real-time platforms.",
         );
         return;
@@ -213,7 +213,7 @@ export default function Terminal({ actions }: { actions: TerminalActions }) {
         actions.exit();
         return;
       default:
-        print("err", `command not found: ${cmd} — try 'help'`);
+        print("err", `command not found: ${cmd}, try 'help'`);
     }
   };
 
@@ -287,6 +287,7 @@ export default function Terminal({ actions }: { actions: TerminalActions }) {
         role="log"
         aria-live="polite"
         aria-label="Terminal output"
+        data-lenis-prevent
         className="flex-1 overflow-y-auto px-4 py-3"
         onClick={() => inputRef.current?.focus()}
       >
@@ -329,7 +330,7 @@ export default function Terminal({ actions }: { actions: TerminalActions }) {
       <div className="flex items-center gap-4 border-t border-line px-4 py-2 text-[10px] uppercase tracking-[0.14em] text-ink-faint">
         <span>↑↓ history</span>
         <span>tab complete</span>
-        <span>exit — back to search</span>
+        <span>exit returns to search</span>
       </div>
     </div>
   );
