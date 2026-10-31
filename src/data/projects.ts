@@ -386,7 +386,8 @@ export const projects: Project[] = [
     kind: "Personal",
     featured: false,
     year: "2024",
-    images: ["/images/easyurl.png"],
+    // Dashboard with links, QR codes and clicks; a fresh short link; the home page
+    images: [1, 2, 3].map((n) => `/images/projects/easyurl/0${n}.png`),
     live: "https://easy-url-frontend.vercel.app/",
     github: "https://github.com/sangatsharma",
     tech: ["Node.js", "Express", "Redis", "React"],
