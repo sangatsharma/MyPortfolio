@@ -30,6 +30,7 @@ export const skillGroups: SkillGroup[] = [
       "Redis",
       "REST APIs",
       "WebSockets",
+      "Push notifications (OneSignal)",
     ],
   },
   {

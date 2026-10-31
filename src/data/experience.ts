@@ -22,14 +22,14 @@ export const experience: Company[] = [
     location: "Pokhara, Nepal",
     roles: [
       {
-        title: "Frontend Developer · Mid-Level",
+        title: "Software Engineer · Mid-Level",
         period: "Apr 2026 to Present",
         summary:
           "Leading frontend delivery across multiple production modules while mentoring the team that ships them.",
         highlights: [
-          "Own day-to-day technical execution for products used by thousands of users across complex operational workflows.",
+          "Own day-to-day technical execution for products used by thousands of users, debugging and fixing production issues across complex operational workflows.",
           "Mentor juniors and interns through structured task breakdowns, code reviews and pairing, raising delivery consistency across the team.",
-          "Manage branching strategy, release readiness and repository health for predictable production cycles.",
+          "Manage branching strategy, release readiness and repository health for predictable production cycles, testing features before every release.",
           "Named Best Performer of the Year (Rapid Riser) within two years of joining.",
         ],
         tags: ["Technical leadership", "Code review", "Release management", "Mentorship"],
@@ -42,7 +42,7 @@ export const experience: Company[] = [
         highlights: [
           "Architected a micro-frontend, monorepo-based system of interconnected apps covering visa processing, CRM and workforce operations across separately deployed portals.",
           "Sat with clients weekly for requirements and SRS discussions, turning business needs into iterative delivery.",
-          "Streamlined multi-role visa pipelines with strict compliance, audit trails and activity tracking for full operational traceability.",
+          "Streamlined multi-role visa pipelines with strict compliance, audit trails and activity tracking for full operational traceability, with OneSignal push notifications on every activity event.",
           "Built a lead-ingestion pipeline from the public website into the CRM, with cross-repo data flow and lead-to-candidate conversion.",
           "Integrated WebSocket-driven real-time updates and chat for synchronized, system-wide interactions.",
         ],

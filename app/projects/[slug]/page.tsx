@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Github, Globe } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
-import Parallax from "@/components/ui/Parallax";
+import Screenshots from "@/components/ui/Screenshots";
 import { getProject, projects } from "@/data/projects";
 import { site } from "@/data/site";
 
@@ -78,7 +78,8 @@ export default async function ProjectPage({ params }: PageProps) {
               rel="noopener noreferrer"
               className="flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-base transition-opacity hover:opacity-85"
             >
-              <Globe size={15} /> Live demo <ArrowUpRight size={14} />
+              <Globe size={15} /> {project.kind === "Commercial" ? "Visit site" : "Live demo"}{" "}
+              <ArrowUpRight size={14} />
             </a>
           )}
           {project.github && (
@@ -110,22 +111,33 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
       </Reveal>
 
-      {project.image && (
+      {project.demo ? (
         <Reveal className="mt-14">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-line shadow-card">
-            <Parallax offset={28} className="absolute -inset-y-10 inset-x-0">
-              <Image
-                src={project.image}
-                alt={`${project.name} screenshot`}
-                fill
-                priority
-                sizes="(min-width: 1152px) 1152px, 100vw"
-                className="object-cover object-top"
-              />
-            </Parallax>
+          {/* Recorded at 1440×900, so the frame matches 16:10 and nothing is cropped */}
+          <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-line shadow-card">
+            <Image
+              src={project.demo}
+              alt={`${project.name} walkthrough`}
+              fill
+              unoptimized
+              priority
+              className="object-cover object-top"
+            />
           </div>
         </Reveal>
-      )}
+      ) : project.images?.length ? (
+        <Reveal className="mt-14">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-line shadow-card">
+            <Screenshots
+              images={project.images}
+              alt={`${project.name} screenshot`}
+              sizes="(min-width: 1152px) 1152px, 100vw"
+              controls
+              priority
+            />
+          </div>
+        </Reveal>
+      ) : null}
 
       <div className="mt-16">
         <Block label="Overview">

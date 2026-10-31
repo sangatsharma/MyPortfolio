@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { ArrowUpRight, Github, Globe } from "lucide-react";
 import { useRef } from "react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import Parallax from "@/components/ui/Parallax";
+import Screenshots from "@/components/ui/Screenshots";
 import { projects, type Project } from "@/data/projects";
 
 const featured = projects.filter((p) => p.featured);
@@ -123,7 +122,7 @@ function StackedCard({
     <div className="sticky top-0 flex h-svh items-center justify-center px-4 sm:px-6">
       <motion.div
         style={{ scale, top: `calc(3svh + ${index * 22}px)` }}
-        className="relative w-full max-w-6xl origin-top"
+        className="relative w-full max-w-7xl origin-top"
       >
         <DeckCard project={project} index={index} />
         <motion.div
@@ -143,7 +142,10 @@ function DeckCard({ project, index }: { project: Project; index: number }) {
       <Link
         href={`/projects/${project.slug}`}
         aria-label={`${project.name} case study`}
-        className="group grid min-h-[60svh] gap-8 p-8 sm:p-12 lg:min-h-[68svh] lg:grid-cols-[1.1fr_1fr] lg:gap-14"
+        className={`group grid min-h-[60svh] gap-8 p-8 sm:p-12 lg:min-h-[68svh] lg:gap-12 ${
+          // Wide screenshots need the wider column to show whole
+          project.images?.length ? "lg:grid-cols-[0.75fr_1.25fr]" : "lg:grid-cols-[1.1fr_1fr]"
+        }`}
       >
         <div className="flex min-w-0 flex-col">
           <div className="mb-7 flex items-baseline justify-between gap-4">
@@ -181,7 +183,7 @@ function DeckCard({ project, index }: { project: Project; index: number }) {
                 {t}
               </span>
             ))}
-            <span className="ml-auto flex items-center gap-1.5 text-base font-medium text-accent-strong">
+            <span className="ml-auto flex items-center gap-1.5 text-[1rem] font-medium text-accent-strong">
               Case study
               <ArrowUpRight
                 size={17}
@@ -191,18 +193,23 @@ function DeckCard({ project, index }: { project: Project; index: number }) {
           </div>
         </div>
 
-        {project.image ? (
-          <div className="relative hidden overflow-hidden rounded-xl border border-line lg:block">
-            {/* Screenshot drifts inside its frame with scroll; bleed absorbs the travel */}
-            <Parallax offset={14} className="absolute -inset-y-5 inset-x-0">
-              <Image
-                src={project.image}
-                alt={`${project.name} screenshot`}
-                fill
-                sizes="(min-width: 1024px) 40vw, 0px"
-                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-              />
-            </Parallax>
+        {project.images?.length ? (
+          /* Browser-framed, at the screenshots' own 16:10 so the whole screen shows */
+          <div className="hidden self-center overflow-hidden rounded-xl border border-line bg-[#0c0c12] shadow-card lg:block">
+            <div aria-hidden className="flex items-center gap-1.5 border-b border-line px-3.5 py-2.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+            </div>
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]">
+                <Screenshots
+                  images={project.images}
+                  alt={`${project.name} screenshot`}
+                  sizes="(min-width: 1024px) 50vw, 0px"
+                />
+              </div>
+            </div>
           </div>
         ) : (
           /* No screenshot (client work) — the architecture is the picture */

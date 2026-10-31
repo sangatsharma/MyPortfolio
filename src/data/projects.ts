@@ -7,8 +7,13 @@ export interface Project {
   kind: ProjectKind;
   featured: boolean;
   year: string;
-  /** Path under /public, shown on cards and case-study hero. */
-  image?: string;
+  /**
+   * Screenshots under /public, shown as a slideshow on the card and the
+   * case-study hero. Convention: /images/projects/<slug>/01.png, 02.png, ...
+   */
+  images?: string[];
+  /** Animated walkthrough (GIF) shown on the case-study page instead of the slideshow. */
+  demo?: string;
   live?: string;
   github?: string;
   tech: string[];
@@ -28,11 +33,24 @@ export const projects: Project[] = [
   {
     slug: "consultancy-crm",
     name: "Consultancy CRM & Visa Platform",
-    tagline: "Micro-frontend platform running visa pipelines for an international consultancy",
+    tagline:
+      "Micro-frontend platform running visa pipelines for an international consultancy",
     kind: "Commercial",
     featured: true,
     year: "2025 to 2026",
-    tech: ["React", "TypeScript", "Monorepo", "Micro-frontends", "WebSockets", "REST APIs"],
+    images: [1, 2, 3, 4, 5].map(
+      (n) => `/images/projects/consultancy-crm/0${n}.png`,
+    ),
+    demo: "/images/projects/consultancy-crm/walkthrough.gif",
+    tech: [
+      "React",
+      "TypeScript",
+      "Monorepo",
+      "Micro-frontends",
+      "WebSockets",
+      "OneSignal",
+      "REST APIs",
+    ],
     domains: ["SaaS", "Real-time", "Architecture"],
     overview:
       "A monorepo-based platform of interconnected portals (CRM, visa processing and workforce operations), each deployed independently but sharing design system, auth and data contracts. I led frontend development end to end: solution design, implementation and continuous delivery across releases.",
@@ -44,11 +62,13 @@ export const projects: Project[] = [
       "Monorepo with domain-scoped apps and a shared UI/util layer, so teams ship portals independently without drift.",
       "Typed API contracts shared across apps to keep cross-portal data flow consistent.",
       "WebSocket layer for real-time pipeline updates and in-app chat, synchronized across portals.",
+      "OneSignal push notifications fired from the activity stream, so every tracked event also reaches staff outside the app.",
       "Lead-ingestion pipeline: public website → CRM with cross-repo data flow and lead-to-candidate conversion.",
     ],
     features: [
       "Multi-role visa pipelines with strict stage gating and partner hand-offs",
       "Activity tracking and audit flows on every pipeline mutation",
+      "OneSignal push notifications triggered by every activity event",
       "Real-time updates and chat via WebSockets",
       "Centralized finance tracking for visa workflows",
       "Role-based access across separately deployed portals",
@@ -86,10 +106,21 @@ export const projects: Project[] = [
     kind: "Commercial",
     featured: true,
     year: "2024 to 2025",
-    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Zustand", "React Query", "WebSockets"],
+    live: "https://www.restrox.com/np",
+    images: [1, 2, 3, 4, 5].map((n) => `/images/projects/restrox/0${n}.png`),
+    tech: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Electron.js",
+      "Tailwind CSS",
+      "Zustand",
+      "React Query",
+      "WebSockets",
+    ],
     domains: ["SaaS", "Real-time"],
     overview:
-      "A multi-tenant restaurant management platform spanning three applications (Product Owner, Client Admin and customer-facing) inside a monorepo with a shared design system. I built frontend modules across all three, gradually taking ownership through sprint planning, code reviews and production releases.",
+      "A multi-tenant restaurant management platform spanning three applications (Product Owner, Client Admin and customer-facing) inside a monorepo with a shared design system. I built frontend modules across all three, gradually taking ownership through sprint planning, code reviews and production releases. I also independently designed and built the RestroX Electron desktop application end to end, covering system design, backend and user interface.",
     problem:
       "Restaurants juggle orders, tables, menus and payments across tools that don't talk to each other. RestroX needed one platform serving three very different audiences, namely platform operators, restaurant admins and diners, without building three separate products.",
     solution:
@@ -98,12 +129,14 @@ export const projects: Project[] = [
       "Monorepo with three deployable apps sharing one design system for cross-module UX consistency.",
       "Zustand for local UI state, React Query for server state, a deliberate split that kept caching predictable.",
       "Payment gateway integration wired into order workflows with real-time status updates.",
+      "Electron desktop application, designed and built solo end to end, from system design through backend and UI.",
     ],
     features: [
       "Tenant-scoped admin dashboards for menus, tables and staff",
       "Live order tracking with WebSocket-driven notifications",
       "Integrated payment gateway workflows",
       "Shared component library across all three apps",
+      "Desktop application built with Electron",
     ],
     challenges: [
       {
@@ -131,8 +164,13 @@ export const projects: Project[] = [
     name: "Simple Patro",
     tagline: "Admin platform behind a production Nepali calendar",
     kind: "Commercial",
-    featured: false,
+    featured: true,
     year: "2024",
+    live: "https://www.simplepatro.com/",
+    // Public calendar in light and dark, alternating: month, day detail, year
+    images: [1, 2, 3, 4, 5, 6].map(
+      (n) => `/images/projects/simple-patro/0${n}.png`,
+    ),
     tech: ["React", "TypeScript", "REST APIs"],
     domains: ["SaaS"],
     overview:
@@ -165,16 +203,149 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "healthpost",
+    name: "HealthPost Management System",
+    tagline:
+      "Offline-first, bilingual records platform for Nepal's community health posts",
+    kind: "Personal",
+    featured: true,
+    year: "2025",
+    live: "https://healthpost.vercel.app",
+    // Admin, health post and patient portals
+    images: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(
+      (n) => `/images/projects/healthpost/0${n}.png`,
+    ),
+    github: "https://github.com/sangatsharma/healthpost-management-frontend",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "TanStack Query",
+      "IndexedDB",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Prisma",
+    ],
+    domains: ["Full-stack", "Architecture"],
+    overview:
+      "A full-stack platform for running Nepal's community health posts: client registration, OPD tickets, referrals, staff management and a patient portal for personal records. Built as my final-year B.E. Software Engineering project, end to end from the Prisma schema and Express API to a bilingual Next.js frontend.",
+    problem:
+      "Health posts in rural Nepal keep records on paper and work on internet that drops for hours. Any digital system has to keep working offline, speak Nepali, use Bikram Sambat dates and respect who on staff is allowed to see what.",
+    solution:
+      "Three portals in one app (Admin, Health Post and Patient), selected by role after login, with an offline layer underneath: cached pages, a persisted query cache for reads and a queued write path that staff review and sync once the connection returns.",
+    architecture: [
+      "Service worker pre-caches the app shell and every portal route in both locales, serving network-first with a cache fallback.",
+      "TanStack Query cache persisted to IndexedDB for 24 hours so loaded clients, OPD visits and referrals stay readable offline.",
+      "Axios interceptor queues offline writes in IndexedDB, serializing FormData file uploads to base64 so attachments survive the queue.",
+      "Express 5 REST API over PostgreSQL and Prisma with cookie-based JWT auth, an OTP login step and Zod-validated requests.",
+    ],
+    features: [
+      "Multi-step client registration and OPD visits with vitals, prescriptions and printable tickets",
+      "Referrals with printable referral slips and incoming referral handling",
+      "Staff roles mirroring real positions (Health Assistant, ANM, Lab Technician, FCHV) with resource-level permissions",
+      "English and Nepali UI, Bikram Sambat dates and Devanagari PDF export",
+      "Patient portal for medical history, reports, medications, vaccinations and reminders",
+    ],
+    challenges: [
+      {
+        title: "Writes that happen offline",
+        detail:
+          "Silently replaying queued requests risks duplicate or stale records. Queued registrations and OPD records surface under an Offline tab so staff review each one before syncing, and synced entries leave the queue.",
+      },
+      {
+        title: "Nepali as a first-class locale",
+        detail:
+          "Localization went beyond translated strings: localized numerals, a B.S. date picker, API messages returned in the user's language and PDFs with an embedded Devanagari font so printed tickets read correctly.",
+      },
+    ],
+    performance: [
+      "Persisted query cache means revisiting a client record loads instantly, online or not.",
+      "Network-first page caching keeps content fresh when online without blocking staff when it isn't.",
+    ],
+    lessons: [
+      "Offline-first is a product decision before it is a technical one: deciding who resolves a conflicting record matters more than the queue itself.",
+      "Modeling permissions after real job titles made access rules easy for health-post staff to reason about.",
+    ],
+  },
+  {
+    slug: "escpos-printer-emulator",
+    name: "ESC/POS Printer Emulator",
+    tagline: "Open-source network receipt printer emulator, published on npm",
+    kind: "Personal",
+    featured: true,
+    year: "2026",
+    live: "https://www.npmjs.com/package/escpos-printer-emulator",
+    github: "https://github.com/sangatsharma/escpos-printer-emulator",
+    // Live viewer (dark): restaurant invoice, its end with payment QR and cut, decoded commands, kitchen ticket and its copy split by a cut
+    images: [1, 2, 3, 4].map(
+      (n) => `/images/projects/escpos-printer-emulator/0${n}.png`,
+    ),
+    tech: [
+      "Node.js",
+      "TypeScript",
+      "TCP sockets",
+      "React",
+      "Vite",
+      "Server-Sent Events",
+    ],
+    domains: ["Real-time", "Architecture"],
+    overview:
+      "A fake network receipt printer for developing and testing ESC/POS printing without hardware. It listens on raw TCP port 9100 like a real printer, interprets the byte stream the way printer firmware does and renders exactly what would print in a live web viewer. Published on npm and runnable with a single npx command.",
+    problem:
+      "Testing receipt and kitchen printing for POS apps meant wasting paper on a physical printer sitting next to your desk, and bugs in the raw bytes only showed up once printed. Several printers at once, on different IPs, was out of reach.",
+    solution:
+      "An emulator that behaves like the firmware rather than a pretty preview: printer state carries across jobs, commands split across TCP packets are reassembled and unsupported commands fail the way a real head would. Any app, driver or library that prints to a network printer works unchanged.",
+    architecture: [
+      "Pure interpreter core (no server dependencies) that turns ESC/POS bytes into a positioned display list per ticket.",
+      "One TCP listener per configured printer, each on its own IP and port, queuing connections like real hardware.",
+      "HTTP API with Server-Sent Events streams jobs live to a React and Vite viewer.",
+      "CLI, library API and job history stored as raw bytes plus rendered JSON.",
+    ],
+    features: [
+      "Text styles, code pages and GBK double-byte Kanji",
+      "Raster and column images, QR, PDF417, DataMatrix and all common 1D barcodes",
+      "Paper cuts at the blade offset, cash drawer kicks, beeper and status replies on the socket",
+      "Thermal and dot-matrix profiles in 58mm and 80mm widths",
+      "Multiple printers from one printers.json config",
+    ],
+    challenges: [
+      {
+        title: "Emulating firmware, not a spec",
+        detail:
+          "Real printers have quirks: alignment latches on the first character of a line, state leaks between jobs and bytes without a final line feed print with the next job. Reproducing these is what makes byte-level bugs show up the way they would on paper.",
+      },
+      {
+        title: "Clone printer variants",
+        detail:
+          "Popular Xprinter and Bixolon style clones differ from Epson on commands like the beeper. The interpreter supports both variants so apps tested against it behave on the hardware customers actually buy.",
+      },
+    ],
+    performance: [
+      "Commands split across TCP packets are reassembled without buffering whole jobs before rendering.",
+      "Interpreter and TCP and HTTP behaviour covered by node:test suites, with generated sample jobs shipped in the package.",
+    ],
+    lessons: [
+      "Publishing to npm forces good boundaries: a clean core, a small CLI and documentation someone else can follow without asking you.",
+    ],
+  },
+  {
     slug: "ciy",
     name: "CIY, Cook It Yourself",
     tagline: "Full-stack recipe platform with personalized discovery",
     kind: "Personal",
-    featured: true,
+    featured: false,
     year: "2024",
-    image: "/images/ciydark.png",
+    images: ["/images/ciydark.png", "/images/ciylight.png"],
     live: "https://recipe-recommender-five.vercel.app/",
     github: "https://github.com/sangatsharma/Recipe-recommender",
-    tech: ["React", "Node.js", "Express", "PostgreSQL", "REST APIs", "Tailwind CSS"],
+    tech: [
+      "React",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "REST APIs",
+      "Tailwind CSS",
+    ],
     domains: ["Full-stack", "AI"],
     overview:
       "A full-stack recipe platform where people discover, share and save recipes, with recommendations that adapt to taste. Built end to end: PostgreSQL schema, Express REST API and a React frontend.",
@@ -215,7 +386,7 @@ export const projects: Project[] = [
     kind: "Personal",
     featured: false,
     year: "2024",
-    image: "/images/easyurl.png",
+    images: ["/images/easyurl.png"],
     live: "https://easy-url-frontend.vercel.app/",
     github: "https://github.com/sangatsharma",
     tech: ["Node.js", "Express", "Redis", "React"],
@@ -256,7 +427,9 @@ export const projects: Project[] = [
     kind: "Personal",
     featured: true,
     year: "2023",
-    image: "/images/tictactoe.png",
+    // Vs the AI: a deliberate loss, then a draw (25 fps, ~1.6 MB, light enough for the card too)
+    images: ["/images/projects/tictactoe/walkthrough.gif"],
+    demo: "/images/projects/tictactoe/walkthrough.gif",
     live: "https://sangatsharma.github.io/Tictactoe/",
     github: "https://github.com/sangatsharma/Tictactoe",
     tech: ["JavaScript", "WebSockets", "PWA", "Minimax"],
